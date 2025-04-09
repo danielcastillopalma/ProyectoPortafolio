@@ -1,7 +1,0 @@
-{
-  "name": "PuntoVerdeApp",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular"
-}
