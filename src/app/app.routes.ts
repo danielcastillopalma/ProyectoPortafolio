@@ -10,4 +10,8 @@ export const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full',
   },
+  {
+    path: 'qrlab',
+    loadComponent: () => import('./pages/qrlab/qrlab.page').then( m => m.QrlabPage)
+  },
 ];
