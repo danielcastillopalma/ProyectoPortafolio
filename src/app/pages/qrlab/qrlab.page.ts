@@ -1,0 +1,26 @@
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonContent, IonHeader, IonTitle, IonToolbar,IonButton } from '@ionic/angular/standalone';
+import { QRService } from 'src/app/services/qr.service';
+
+@Component({
+  selector: 'app-qrlab',
+  templateUrl: './qrlab.page.html',
+  styleUrls: ['./qrlab.page.scss'],
+  standalone: true,
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton]
+})
+export class QrlabPage implements OnInit {
+
+  constructor(public qr: QRService) { }
+
+  ngOnInit() {
+  }
+
+  Scan() {
+    this.qr.StartScan();
+  }
+
+}
+
