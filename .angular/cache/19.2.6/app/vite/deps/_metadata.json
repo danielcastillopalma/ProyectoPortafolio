@@ -1,0 +1,151 @@
+{
+  "hash": "a90f9819",
+  "configHash": "25d3c421",
+  "lockfileHash": "4a39be23",
+  "browserHash": "70078ade",
+  "optimized": {
+    "@angular/common": {
+      "src": "../../../../../../node_modules/@angular/common/fesm2022/common.mjs",
+      "file": "@angular_common.js",
+      "fileHash": "787ec65b",
+      "needsInterop": false
+    },
+    "@angular/core": {
+      "src": "../../../../../../node_modules/@angular/core/fesm2022/core.mjs",
+      "file": "@angular_core.js",
+      "fileHash": "b28180ff",
+      "needsInterop": false
+    },
+    "@angular/forms": {
+      "src": "../../../../../../node_modules/@angular/forms/fesm2022/forms.mjs",
+      "file": "@angular_forms.js",
+      "fileHash": "12a637a0",
+      "needsInterop": false
+    },
+    "@angular/platform-browser": {
+      "src": "../../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
+      "file": "@angular_platform-browser.js",
+      "fileHash": "dcf5a4dd",
+      "needsInterop": false
+    },
+    "@angular/router": {
+      "src": "../../../../../../node_modules/@angular/router/fesm2022/router.mjs",
+      "file": "@angular_router.js",
+      "fileHash": "31ad455e",
+      "needsInterop": false
+    },
+    "@capacitor-community/barcode-scanner": {
+      "src": "../../../../../../node_modules/@capacitor-community/barcode-scanner/dist/esm/index.js",
+      "file": "@capacitor-community_barcode-scanner.js",
+      "fileHash": "5953c72d",
+      "needsInterop": false
+    },
+    "@ionic/angular/standalone": {
+      "src": "../../../../../../node_modules/@ionic/angular/fesm2022/ionic-angular-standalone.mjs",
+      "file": "@ionic_angular_standalone.js",
+      "fileHash": "bc08a69d",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "status-tap-DOBCJ6IR": {
+      "file": "status-tap-DOBCJ6IR.js"
+    },
+    "input-shims-HPZCHYR6": {
+      "file": "input-shims-HPZCHYR6.js"
+    },
+    "focus-visible-RAFDA6YZ": {
+      "file": "focus-visible-RAFDA6YZ.js"
+    },
+    "shadow-css-KQBFNRGS": {
+      "file": "shadow-css-KQBFNRGS.js"
+    },
+    "ios.transition-CQH37ZK7": {
+      "file": "ios__transition-CQH37ZK7.js"
+    },
+    "md.transition-SWHCDYJX": {
+      "file": "md__transition-SWHCDYJX.js"
+    },
+    "index3-VXTLLDIH": {
+      "file": "index3-VXTLLDIH.js"
+    },
+    "hardware-back-button-XEHO4BKH": {
+      "file": "hardware-back-button-XEHO4BKH.js"
+    },
+    "swipe-back-ZNI7ZNJE": {
+      "file": "swipe-back-ZNI7ZNJE.js"
+    },
+    "keyboard2-66YWXDSS": {
+      "file": "keyboard2-66YWXDSS.js"
+    },
+    "index9-6XDTB7PO": {
+      "file": "index9-6XDTB7PO.js"
+    },
+    "chunk-IY4ZDLB2": {
+      "file": "chunk-IY4ZDLB2.js"
+    },
+    "chunk-7Q5HCUSL": {
+      "file": "chunk-7Q5HCUSL.js"
+    },
+    "chunk-IJ2TBMIZ": {
+      "file": "chunk-IJ2TBMIZ.js"
+    },
+    "chunk-4DTZDNWB": {
+      "file": "chunk-4DTZDNWB.js"
+    },
+    "chunk-5HHDVVHS": {
+      "file": "chunk-5HHDVVHS.js"
+    },
+    "chunk-G6A6GINZ": {
+      "file": "chunk-G6A6GINZ.js"
+    },
+    "chunk-XECEN53I": {
+      "file": "chunk-XECEN53I.js"
+    },
+    "chunk-NWEONTVA": {
+      "file": "chunk-NWEONTVA.js"
+    },
+    "chunk-EUT5B6DW": {
+      "file": "chunk-EUT5B6DW.js"
+    },
+    "chunk-4AF7KAXZ": {
+      "file": "chunk-4AF7KAXZ.js"
+    },
+    "chunk-T7NLFTSM": {
+      "file": "chunk-T7NLFTSM.js"
+    },
+    "chunk-S73DE2HG": {
+      "file": "chunk-S73DE2HG.js"
+    },
+    "chunk-K4WBEI64": {
+      "file": "chunk-K4WBEI64.js"
+    },
+    "chunk-ACUVEYEP": {
+      "file": "chunk-ACUVEYEP.js"
+    },
+    "chunk-V3MTOLNF": {
+      "file": "chunk-V3MTOLNF.js"
+    },
+    "chunk-6CZBYOJE": {
+      "file": "chunk-6CZBYOJE.js"
+    },
+    "chunk-RY6CCJU5": {
+      "file": "chunk-RY6CCJU5.js"
+    },
+    "chunk-6HMOXL3J": {
+      "file": "chunk-6HMOXL3J.js"
+    },
+    "chunk-UKEK7HYJ": {
+      "file": "chunk-UKEK7HYJ.js"
+    },
+    "web-6AKJIPH4": {
+      "file": "web-6AKJIPH4.js"
+    },
+    "chunk-SWOIOTSH": {
+      "file": "chunk-SWOIOTSH.js"
+    },
+    "chunk-ZVATTXSA": {
+      "file": "chunk-ZVATTXSA.js"
+    }
+  }
+}
