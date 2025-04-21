@@ -58,5 +58,9 @@ export class QRService {
     document.querySelector('body')?.classList.remove('scanner-active');
     this.scan = false;
     this.scanResult = "Stop Scan";
+<<<<<<< HEAD
   }
 }
+=======
+  }
+>>>>>>> origin/main
