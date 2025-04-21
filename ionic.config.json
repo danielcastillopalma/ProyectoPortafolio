@@ -1,5 +1,13 @@
 {
+<<<<<<< HEAD
   "name": "New Ionic App",
   "integrations": {},
   "type": "angular"
+=======
+  "name": "PuntoVerde",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+>>>>>>> origin/main
 }
