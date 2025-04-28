@@ -22,11 +22,11 @@ export class QrlabPage implements OnInit {
   Scan() {
     this.qr.StartScan();
   }
-  Login() {
-    console.log("Entra");
-    this.auth.LoginWithGoogle();
-    console.log("Sale");
+  public async signInWithGoogle(): Promise<void> {
+    await this.auth.signInWithGoogle();
   }
 
+
 }
+
 
