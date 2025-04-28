@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar,IonButton } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton } from '@ionic/angular/standalone';
 import { QRService } from 'src/app/services/qr.service';
+import { FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
   selector: 'app-qrlab',
@@ -13,13 +14,18 @@ import { QRService } from 'src/app/services/qr.service';
 })
 export class QrlabPage implements OnInit {
 
-  constructor(public qr: QRService) { }
+  constructor(public qr: QRService, private auth: FirebaseService) { }
 
   ngOnInit() {
   }
 
   Scan() {
     this.qr.StartScan();
+  }
+  Login() {
+    console.log("Entra");
+    this.auth.LoginWithGoogle();
+    console.log("Sale");
   }
 
 }
