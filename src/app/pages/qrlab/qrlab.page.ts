@@ -20,7 +20,7 @@ export class QrlabPage implements OnInit {
   }
 
   Scan() {
-    this.qr.StartScan();
+    this.qr.startScan(0);
   }
   public async signInWithGoogle(): Promise<void> {
     await this.auth.signInWithGoogle();
