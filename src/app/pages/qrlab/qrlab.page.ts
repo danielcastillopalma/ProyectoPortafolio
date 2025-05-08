@@ -14,9 +14,12 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 })
 export class QrlabPage implements OnInit {
 
-  constructor(public qr: QRService, private auth: FirebaseService) { }
+  constructor(public qr: QRService, private auth: FirebaseService) { 
+    
+  }
   result:any;
   ngOnInit() {
+    this.auth.validateCurrentUser();
   }
 
   async Scan() {

@@ -12,5 +12,6 @@ export class AppComponent {
     private firebase: FirebaseService
   ) {
     this.firebase.initialize();
+    this.firebase.validateCurrentUser();
   }
 }
