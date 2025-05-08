@@ -15,12 +15,13 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 export class QrlabPage implements OnInit {
 
   constructor(public qr: QRService, private auth: FirebaseService) { }
-
+  result:any;
   ngOnInit() {
   }
 
-  Scan() {
-    this.qr.startScan(0);
+  async Scan() {
+    this.result=await this.qr.startScan(0);
+    console.log("1: ",this.result)
   }
   public async signInWithGoogle(): Promise<void> {
     await this.auth.signInWithGoogle();

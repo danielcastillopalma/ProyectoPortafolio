@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" *ngIf="!qr.scan">
-  <h2>RESULTADO: {{qr.scanResult}}</h2>
+  <h2>RESULTADO: {{result}}</h2>
 </ion-content>
 <ion-content>
  <ion-button id="btn_qr" (click)="Scan()">ESCANEAR</ion-button>
