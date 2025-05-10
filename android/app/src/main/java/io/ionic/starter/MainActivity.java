@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package com.puntoverde.app;
 
 import com.getcapacitor.BridgeActivity;
 
