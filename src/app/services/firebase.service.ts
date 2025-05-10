@@ -26,9 +26,12 @@ export class FirebaseService {
       mode: 'redirect',
       scopes: ['https://www.googleapis.com/auth/userinfo.email'],
     });
+    this.validateCurrentUser();
   }
   public async validateCurrentUser(): Promise<boolean> {
+    console.log("ENTRADA A VALIDAR USUARIO")
     const result = await FirebaseAuthentication.getCurrentUser();
+    console.log("correo:", result.user?.email);
 
     if (result?.user?.email) {
       const email = result.user.email;
@@ -36,8 +39,9 @@ export class FirebaseService {
       const allowedDomains = ['duoc.cl', 'duocuc.cl', 'profesor.duoc.cl'];
 
       if (!allowedDomains.includes(domain)) {
+        console.log('ACA ENTRA ')
         await FirebaseAuthentication.signOut();
-        alert('Acceso restringido a correos institucionales DUOC.');
+        console.log('Acceso restringido a correos institucionales DUOC.');
         return false;
       }
 
