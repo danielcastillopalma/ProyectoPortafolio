@@ -1,0 +1,13 @@
+{
+	"appId": "com.puntoverde.app",
+	"appName": "PuntoVerde",
+	"webDir": "www",
+	"plugins": {
+		"FirebaseAuthentication": {
+			"skipNativeAuth": false,
+			"providers": [
+				"google.com"
+			]
+		}
+	}
+}
