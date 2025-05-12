@@ -1,0 +1,74 @@
+#container {
+  text-align: center;
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#container strong {
+  font-size: 20px;
+  line-height: 26px;
+}
+
+#container p {
+  font-size: 16px;
+  line-height: 22px;
+
+  color: #8c8c8c;
+
+  margin: 0;
+}
+
+#container a {
+  text-decoration: none;
+}
+
+.fondo {
+  --background: transparent; /* Elimina color blanco de fondo por defecto */
+  background-image: url('/assets/FONDO.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative; /* Necesario para posicionar el botón correctamente */
+}
+
+.contenedor-card {
+  padding: 30px 20px; /* Espacio arriba y a los lados */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centra horizontalmente */
+}
+
+.titulo-home {
+  font-family: 'Cal Sans', sans-serif;
+  font-size: 35px;
+  font-weight: 400;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 20px; 
+}
+
+.logo_menu {
+  width: 130px; 
+  margin-top:0px; 
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.botones-inicio {
+  display: flex;
+  justify-content: center;
+  gap: 10px; 
+  margin-top: 30px;
+  flex-wrap: wrap; 
+}
+
+.botones-inicio .btn {
+  min-width: 70px; 
+  padding: 4px 10px; 
+  font-size: 14px;   
+}
