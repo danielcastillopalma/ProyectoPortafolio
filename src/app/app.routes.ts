@@ -45,7 +45,11 @@ export const routes: Routes = [
       {
         path: 'acciones',  // Ruta de acciones dentro de tabs
         loadComponent: () => import('./acciones/acciones.page').then((m) => m.AccionesPage),
-      },
+      },  {
+    path: 'login',
+    loadComponent: () => import('./login/login.page').then( m => m.LoginPage)
+  },
+
 ];
 
 
