@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "name": "PuntoVerde",
+=======
+  "name": "proyectoPortafolioD",
+>>>>>>> origin/pchoque
   "integrations": {
     "capacitor": {}
   },

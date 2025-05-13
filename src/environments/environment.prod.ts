@@ -1,4 +1,5 @@
 export const environment = {
+<<<<<<< HEAD
   production: true,
   firebaseConfig: {
     apiKey: "AIzaSyBHn8E2bfH3n0-1TNNiCg4f03Evxqjipu8",
@@ -8,4 +9,7 @@ export const environment = {
     messagingSenderId: "1037044386300",
     appId: "1:1037044386300:web:f0b3b0bbffabf00d984a79"
   }
+=======
+  production: true
+>>>>>>> origin/pchoque
 };

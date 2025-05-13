@@ -1,0 +1,8 @@
+.fondo {
+  --background: transparent; /* Elimina color blanco de fondo por defecto */
+  background-image: url('/assets/FONDO.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative; /* Necesario para posicionar el botón correctamente */
+}
