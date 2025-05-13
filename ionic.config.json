@@ -1,0 +1,7 @@
+{
+  "name": "PuntoVerde",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
