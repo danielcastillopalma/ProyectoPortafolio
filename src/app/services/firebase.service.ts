@@ -3,6 +3,8 @@ import { FirebaseAuthentication } from '@capacitor-firebase/authentication';
 import { initializeApp } from 'firebase/app';
 import { environment } from 'src/environments/environment.prod';
 import { Platform } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { AlertService } from './alert.service';
 
 
 @Injectable({
@@ -10,9 +12,9 @@ import { Platform } from '@ionic/angular';
 })
 export class FirebaseService {
 
-  constructor(private platform: Platform) {
-    
-   }
+  constructor(private platform: Platform, private router: Router, private alert: AlertService) {
+
+  }
   public async initialize(): Promise<void> {
     if (this.platform.is('capacitor')) {
       return;
@@ -28,6 +30,8 @@ export class FirebaseService {
     });
     this.validateCurrentUser();
   }
+
+
   public async validateCurrentUser(): Promise<boolean> {
     console.log("ENTRADA A VALIDAR USUARIO")
     const result = await FirebaseAuthentication.getCurrentUser();
@@ -39,17 +43,22 @@ export class FirebaseService {
       const allowedDomains = ['duoc.cl', 'duocuc.cl', 'profesor.duoc.cl'];
 
       if (!allowedDomains.includes(domain)) {
-        console.log('ACA ENTRA ')
+        await this.alert.toast("El correo " + email + " no pertence a DuocUC")
+        this.router.navigateByUrl('login')
+
         await FirebaseAuthentication.signOut();
         console.log('Acceso restringido a correos institucionales DUOC.');
         return false;
       }
-
-      console.log('Usuario permitido:', email);
+      this.router.navigateByUrl('tabs/home')
       return true;
     }
 
     return false;
+  }
+  public async logout() {
+    await FirebaseAuthentication.signOut();
+    this.validateCurrentUser();
   }
 
 }

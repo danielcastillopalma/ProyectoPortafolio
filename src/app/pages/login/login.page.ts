@@ -1,51 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-  IonItem,
-  IonText,
-  IonIcon,
-  IonLabel,
-  IonInput,
-  IonButton,
-  IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar
-} from '@ionic/angular/standalone';
+import { IonicModule } from '@ionic/angular';
+
 import { RouterModule } from '@angular/router';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
-  standalone: true,
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    IonText,
-    IonItem,
-    IonIcon,
-    IonLabel,
-    IonInput,
-    IonButton,
-    IonContent,
-    IonHeader,
-    IonTitle,
-    IonToolbar,
+    IonicModule
   ]
 
 })
 export class LoginPage implements OnInit {
 
-  constructor(private auth:FirebaseService) { }
+  constructor(private auth: FirebaseService, private alert: AlertService) { }
 
   ngOnInit() {
+    this.alert.alert("Punto Verde", "DuocUC Viña del Mar", "Esta aplicación está diseñada exclusivamente para usuarios de Duoc. Debes iniciar sesión con tu correo institucional", ['Aceptar']);
   }
-  login(){
+  login() {
     this.auth.signInWithGoogle();
   }
 }

@@ -1,17 +1,14 @@
 import { Component } from '@angular/core';
-import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
-<<<<<<< HEAD
+import { IonApp, IonRouterOutlet,IonContent } from '@ionic/angular/standalone';
 import { FirebaseService } from './services/firebase.service';
-=======
->>>>>>> origin/pchoque
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  imports: [IonApp, IonRouterOutlet],
+  imports: [IonApp, IonRouterOutlet,CommonModule],
 })
 export class AppComponent {
-<<<<<<< HEAD
   constructor(
     private firebase: FirebaseService
   ) {
@@ -19,9 +16,3 @@ export class AppComponent {
     this.firebase.validateCurrentUser();
   }
 }
-=======
-  constructor() {}
-}
-
-
->>>>>>> origin/pchoque

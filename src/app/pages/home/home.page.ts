@@ -1,36 +1,23 @@
 import { Component } from '@angular/core';
-<<<<<<< HEAD
-import { Route, Router } from '@angular/router';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton} from '@ionic/angular/standalone';
-=======
-import { IonicModule } from '@ionic/angular';
-import { RouterModule } from '@angular/router'; 
-import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
->>>>>>> origin/pchoque
+import { RouterModule } from '@angular/router';
+import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonContent } from '@ionic/angular/standalone';
+import { FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
   selector: 'app-home',
+  standalone: true,
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-<<<<<<< HEAD
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent,IonButton],
+  imports: [IonContent, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, RouterModule],
 })
 export class HomePage {
-  constructor(private route:Router) {}
-
-  router(){
-    this.route.navigateByUrl("qrlab");
+  constructor(private auth: FirebaseService) { }
+  async logout() {
+    this.auth.logout();
   }
 }
-=======
-  imports: [IonCard,  RouterModule, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonHeader, IonToolbar, IonTitle, IonContent],
-})
-export class HomePage {
-  constructor() {}
-}
 
 
 
 
 
->>>>>>> origin/pchoque

@@ -36,7 +36,6 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
 
-<<<<<<< HEAD
 
 //qr scanner
 
@@ -45,5 +44,10 @@ body.scanner-active {
     background: transparent;
     --ion-background-color: transparent;
 }
-=======
->>>>>>> origin/pchoque
+
+ion-tab-bar {
+    --background: #43b02a;
+    --color: white;
+    --color-selected: white;
+    border: none !important;
+}
