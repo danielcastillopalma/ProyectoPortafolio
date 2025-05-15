@@ -10,6 +10,7 @@ import {
   IonTabs,
   IonTitle,
   IonToolbar,
+  IonRouterOutlet
 } from '@ionic/angular/standalone';
 
 @Component({
@@ -17,7 +18,7 @@ import {
   standalone: true,
   templateUrl: './tabs.component.html',
   styleUrls: ['./tabs.component.scss'],
-  imports: [IonContent, IonHeader, IonIcon, IonTab, IonTabBar, IonTabButton, IonTabs, IonTitle, IonToolbar, IonicModule]
+  imports: [IonContent, IonHeader, IonIcon, IonTab, IonTabBar, IonTabButton, IonTabs, IonTitle, IonToolbar,IonRouterOutlet]
 })
 
 export class TabsComponent implements OnInit {

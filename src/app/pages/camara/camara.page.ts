@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { IonContent} from '@ionic/angular/standalone';
+import { IonContent } from '@ionic/angular/standalone';
+import { QRService } from 'src/app/services/qr.service';
 
 @Component({
   selector: 'app-camara',
@@ -10,9 +11,10 @@ import { IonContent} from '@ionic/angular/standalone';
 })
 export class CamaraPage implements OnInit {
 
-  constructor() { }
+  constructor(private qr: QRService) { }
 
   ngOnInit() {
+    this.qr.startScan();
   }
 
 }

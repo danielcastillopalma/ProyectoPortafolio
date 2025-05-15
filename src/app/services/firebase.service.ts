@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment.prod';
 import { Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AlertService } from './alert.service';
+import { ApirestService } from './apirest.service';
 
 
 @Injectable({
@@ -12,7 +13,7 @@ import { AlertService } from './alert.service';
 })
 export class FirebaseService {
 
-  constructor(private platform: Platform, private router: Router, private alert: AlertService) {
+  constructor(private platform: Platform, private router: Router, private alert: AlertService,private api:ApirestService) {
 
   }
   public async initialize(): Promise<void> {
@@ -34,7 +35,9 @@ export class FirebaseService {
 
   public async validateCurrentUser(): Promise<boolean> {
     console.log("ENTRADA A VALIDAR USUARIO")
+
     const result = await FirebaseAuthentication.getCurrentUser();
+    await this.api.getEmail((result.user?.email)+'');
     console.log("correo:", result.user?.email);
 
     if (result?.user?.email) {
