@@ -1,3 +1,11 @@
 <ion-content class="fondo">
-  <header class="titulo-qr">¿Encontraste un codigo QR escondido?</header>
+  <header class="titulo-qr">¿Encontraste un código QR escondido?</header>
+
+  <ion-row class="ion-padding ion-justify-content-center">
+    <ion-col size="auto">
+      <ion-button (click)="openQR()">Escanear Punto Verde</ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row><h1>{{resultadoqr}}</h1></ion-row>
+  
 </ion-content>

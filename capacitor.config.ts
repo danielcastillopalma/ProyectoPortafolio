@@ -4,6 +4,12 @@ const config: CapacitorConfig = {
   appId: 'com.puntoverde.app',
   appName: 'PuntoVerde',
   webDir: 'www',
+  server: {
+    allowNavigation: [
+      "respawnen3.duckdns.org"
+    ],
+    cleartext: false
+  },
   plugins: {
     FirebaseAuthentication: {
       skipNativeAuth: false,

@@ -35,17 +35,12 @@
                 "output": "assets"
               }
             ],
-<<<<<<< HEAD
-            "styles": ["src/global.scss", "src/theme/variables.scss"],
-            "scripts": [],
-=======
             "styles": ["src/global.scss", 
             "node_modules/bootstrap/dist/css/bootstrap.min.css",
             "src/theme/variables.scss"],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.min.js"
             ],
->>>>>>> origin/pchoque
             "browser": "src/main.ts"
           },
           "configurations": {
@@ -118,15 +113,10 @@
                 "output": "assets"
               }
             ],
-<<<<<<< HEAD
-            "styles": ["src/global.scss", "src/theme/variables.scss"],
-            "scripts": []
-=======
             "styles": ["src/global.scss", 
             "src/theme/variables.scss"],
             "scripts": [
             ]
->>>>>>> origin/pchoque
           },
           "configurations": {
             "ci": {

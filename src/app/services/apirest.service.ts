@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { FirebaseAuthentication } from '@capacitor-firebase/authentication';
 
 @Injectable({
   providedIn: 'root'
@@ -7,9 +8,53 @@ export class ApirestService {
 
   constructor() { }
 
-  async getEmail(email: string) {
-    const response = await fetch(`http://localhost:3000/usuario?email=${encodeURIComponent(email)}`);
-    const person = await response.json();
-    console.log(person);
+  public async getEmail(email: string, displayName: string) {
+    try {
+      const response = await fetch(`https://respawnen3.duckdns.org/api/querys/${encodeURIComponent(email)}`);
+
+      if (response.status === 404) {
+        // No encontrado → crear usuario
+        const createResponse = await fetch('https://respawnen3.duckdns.org/api/querys', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            correo_usuario: email,
+            nom_usuario: displayName
+            // Agrega otros campos si es necesario
+          }),
+        });
+
+        if (!createResponse.ok) {
+          throw new Error('Error al crear el usuario');
+        }
+
+        return await createResponse.json();
+      }
+
+      if (!response.ok) throw new Error('Error en la consulta');
+
+      return await response.json();
+
+    } catch (error) {
+      console.error('Error al validar o crear usuario:', error);
+      return null;
+    }
   }
+  public async getQrInfo(qr: string) {
+    try {
+      const response = await fetch(`https://respawnen3.duckdns.org/api/qr/${encodeURIComponent(qr)}`);
+      if (!response.ok) {
+        throw new Error('Error en la respuesta del servidor');
+      }
+      const data = await response.json(); 
+      return data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
+
 }

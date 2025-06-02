@@ -13,7 +13,7 @@ import { ApirestService } from './apirest.service';
 })
 export class FirebaseService {
 
-  constructor(private platform: Platform, private router: Router, private alert: AlertService,private api:ApirestService) {
+  constructor(private platform: Platform, private router: Router, private alert: AlertService, private api: ApirestService) {
 
   }
   public async initialize(): Promise<void> {
@@ -34,31 +34,50 @@ export class FirebaseService {
 
 
   public async validateCurrentUser(): Promise<boolean> {
-    console.log("ENTRADA A VALIDAR USUARIO")
+    console.log("ENTRADA A VALIDAR USUARIO");
 
     const result = await FirebaseAuthentication.getCurrentUser();
-    await this.api.getEmail((result.user?.email)+'');
-    console.log("correo:", result.user?.email);
+    const email = result.user?.email + '';
+    const name = result.user?.displayName || 'Usuario Nuevo';
 
-    if (result?.user?.email) {
-      const email = result.user.email;
-      const domain = email.split('@')[1];
-      const allowedDomains = ['duoc.cl', 'duocuc.cl', 'profesor.duoc.cl'];
+    console.log("correo:", email);
+    console.log("nombre:", name);
+    console.log("datos:", JSON.stringify(result));
 
-      if (!allowedDomains.includes(domain)) {
-        await this.alert.toast("El correo " + email + " no pertence a DuocUC")
-        this.router.navigateByUrl('login')
+    if (!email) return false;
 
-        await FirebaseAuthentication.signOut();
-        console.log('Acceso restringido a correos institucionales DUOC.');
-        return false;
-      }
-      this.router.navigateByUrl('tabs/home')
-      return true;
+    // Verificar que el correo pertenece a dominios permitidos
+    const domain = email.split('@')[1];
+    const allowedDomains = ['duoc.cl', 'duocuc.cl', 'profesor.duoc.cl'];
+
+    if (!allowedDomains.includes(domain)) {
+      await this.alert.toast("El correo " + email + " no pertenece a DuocUC");
+      this.router.navigateByUrl('login');
+      await FirebaseAuthentication.signOut();
+      console.log('Acceso restringido a correos institucionales DUOC.');
+      return false;
     }
 
-    return false;
+    // Verificar si el email existe en base de datos
+    try {
+      const userFromDb = await this.api.getEmail(email, name);
+      if (!userFromDb) {
+        await this.alert.toast("Usuario no registrado en la base de datos");
+        await FirebaseAuthentication.signOut();
+        return false;
+      }
+
+      // Usuario válido
+      this.router.navigateByUrl('tabs/home');
+      return true;
+    } catch (err) {
+      console.error('Error al validar usuario en BD:', err);
+      await this.alert.toast("Error validando usuario");
+      return false;
+    }
   }
+
+
   public async logout() {
     await FirebaseAuthentication.signOut();
     this.validateCurrentUser();
