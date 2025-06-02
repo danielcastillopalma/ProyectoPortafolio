@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PhotoaiService {
-  private apiKey = 'AIzaSyCrLXQQtGJv6Xm783kJDm__YKRWMMgEGBM'; // Reemplaza con tu clave real
+  // 🔐 Asegúrate de restringir esta clave en producción (por IP, referer, etc.)
+  private apiKey = `AIzaSyCYrAfH759HdkzdEOdGWxAS57WBiB1EHoE`;
   private apiUrl = `https://vision.googleapis.com/v1/images:annotate`;
 
   constructor() { }
@@ -14,7 +16,7 @@ export class PhotoaiService {
       requests: [
         {
           image: {
-            content: base64Image,
+            content: base64Image, // Solo el contenido Base64, sin el prefijo
           },
           features: [
             {
@@ -27,10 +29,18 @@ export class PhotoaiService {
     };
 
     try {
-      const response = await axios.post(`${this.apiUrl}?key=${this.apiKey}`, body);
+      const response = await axios.post(
+        `${this.apiUrl}?key=${this.apiKey}`,
+        body,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
       return response.data;
     } catch (error: any) {
-      console.error('Error al analizar imagen con Google Vision:', error);
+      console.error('🛑 Error al analizar imagen con Google Vision:', error.response?.data || error.message);
       throw error;
     }
   }

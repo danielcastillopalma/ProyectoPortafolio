@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { IonContent, IonButton, IonRow, IonCol } from '@ionic/angular/standalone';
 import { ApirestService } from 'src/app/services/apirest.service';
+import { PhotoaiService } from 'src/app/services/photoai.service';
 import { QRService } from 'src/app/services/qr.service';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 @Component({
   selector: 'app-camara',
@@ -11,11 +13,31 @@ import { QRService } from 'src/app/services/qr.service';
   imports: [IonContent, IonButton, IonRow, IonCol]
 })
 export class CamaraPage implements OnInit {
-
-  constructor(private qr: QRService, private api: ApirestService) { }
+  resultadoVisionAI: any;
+  base64Image: string | null = null;
+  constructor(private qr: QRService, private api: ApirestService, private photoai: PhotoaiService) { }
   resultadoqr: string = "resultado";
   ngOnInit() {
     //this.qr.startScan();
+  }
+
+  async tomarfoto() {
+    try {
+      const image = await Camera.getPhoto({
+        quality: 80,
+        allowEditing: false,
+        resultType: CameraResultType.Base64,
+        source: CameraSource.Camera,
+      });
+      this.base64Image = image.base64String || '';
+      console.log('Imagen capturada: ', this.base64Image);
+
+      const resultado = await this.photoai.analyzeImage(this.base64Image);
+      console.log('Resultado de Google Vision:', resultado);
+      this.resultadoVisionAI = resultado;
+    } catch (error) {
+      console.error('Error al capturar o analziar la foto: ', error);
+    }
   }
 
   public async openQR() {
@@ -30,6 +52,7 @@ export class CamaraPage implements OnInit {
         const resultado = await this.api.getQrInfo(code);
         if (resultado) {
           this.resultadoqr = JSON.stringify(resultado);
+          await this.tomarfoto();
         }
 
 
