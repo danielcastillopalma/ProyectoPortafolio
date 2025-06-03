@@ -38,10 +38,34 @@ export class PhotoaiService {
           },
         }
       );
+      this.procesarJSON(response.data);
       return response.data;
     } catch (error: any) {
       console.error('🛑 Error al analizar imagen con Google Vision:', error.response?.data || error.message);
       throw error;
     }
   }
+
+  public procesarJSON(jsongoogle: any): { descripcion: string; puntuacion: number }[] {
+    const resultados: { descripcion: string; puntuacion: number }[] = [];
+
+    // Si no existe jsongoogle.responses o no es un array, devuelve un array vacío.
+    if (!jsongoogle.responses || !Array.isArray(jsongoogle.responses)) return resultados;
+
+    jsongoogle.responses.forEach((response: any) => {
+      if (response.labelAnnotations && Array.isArray(response.labelAnnotations)) {
+        response.labelAnnotations.forEach((item: any) => {
+          if (item.description && typeof item.score === "number") {
+            resultados.push({
+              descripcion: item.description,
+              puntuacion: item.score,
+            });
+          }
+        });
+      }
+    });
+    console.log(resultados);
+    return resultados;
+  }
+
 }

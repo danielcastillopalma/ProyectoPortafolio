@@ -4,6 +4,8 @@ import { ApirestService } from 'src/app/services/apirest.service';
 import { PhotoaiService } from 'src/app/services/photoai.service';
 import { QRService } from 'src/app/services/qr.service';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { ResiduosCheckService } from 'src/app/services/residuos-check.service';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-camara',
@@ -15,7 +17,7 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 export class CamaraPage implements OnInit {
   resultadoVisionAI: any;
   base64Image: string | null = null;
-  constructor(private qr: QRService, private api: ApirestService, private photoai: PhotoaiService) { }
+  constructor(private toast: AlertService, private check: ResiduosCheckService, private qr: QRService, private api: ApirestService, private photoai: PhotoaiService) { }
   resultadoqr: string = "resultado";
   ngOnInit() {
     //this.qr.startScan();
@@ -34,9 +36,16 @@ export class CamaraPage implements OnInit {
 
       const resultado = await this.photoai.analyzeImage(this.base64Image);
       console.log('Resultado de Google Vision:', resultado);
-      this.resultadoVisionAI = resultado;
+      this.photoai.procesarJSON(resultado);
+      if (this.check.compareResiduos(this.photoai.procesarJSON(resultado), this.resultadoqr)) {
+        console.log("acá entra");
+        this.toast.alert("Aporte ecológico", "Duoc viña", "Aporte Aceptado", ['Aceptar']);
+      } else {
+        console.log("acá no entra");
+        this.toast.alert("Aporte ecológico", "Duoc viña", "Aporte NO Aceptado", ['Aceptar']);
+      };
     } catch (error) {
-      console.error('Error al capturar o analziar la foto: ', error);
+      console.error('Error al capturar o analizar la foto: ', error);
     }
   }
 
