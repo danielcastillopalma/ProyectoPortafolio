@@ -6,6 +6,7 @@ import { QRService } from 'src/app/services/qr.service';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { ResiduosCheckService } from 'src/app/services/residuos-check.service';
 import { AlertService } from 'src/app/services/alert.service';
+import { FirebaseAuthentication } from '@capacitor-firebase/authentication';
 
 @Component({
   selector: 'app-camara',
@@ -19,6 +20,7 @@ export class CamaraPage implements OnInit {
   base64Image: string | null = null;
   constructor(private toast: AlertService, private check: ResiduosCheckService, private qr: QRService, private api: ApirestService, private photoai: PhotoaiService) { }
   resultadoqr: string = "resultado";
+  idpuntoverde: number = 0;
   ngOnInit() {
     //this.qr.startScan();
   }
@@ -39,6 +41,12 @@ export class CamaraPage implements OnInit {
       this.photoai.procesarJSON(resultado);
       if (this.check.compareResiduos(this.photoai.procesarJSON(resultado), this.resultadoqr)) {
         console.log("acá entra");
+        const user = await FirebaseAuthentication.getCurrentUser()
+        //console.log("foto: ", this.base64Image);
+        //console.log("usuario: ", user.user?.email);
+        console.log("idpv: ", this.idpuntoverde)
+        await this.api.postAporte(this.base64Image, user.user?.email, this.idpuntoverde);
+        
         this.toast.alert("Aporte ecológico", "Duoc viña", "Aporte Aceptado", ['Aceptar']);
       } else {
         console.log("acá no entra");
@@ -48,6 +56,8 @@ export class CamaraPage implements OnInit {
       console.error('Error al capturar o analizar la foto: ', error);
     }
   }
+
+
 
   public async openQR() {
     try {
@@ -59,8 +69,11 @@ export class CamaraPage implements OnInit {
 
         console.log('Código limpio:', code);
         const resultado = await this.api.getQrInfo(code);
+
         if (resultado) {
-          this.resultadoqr = JSON.stringify(resultado);
+          this.resultadoqr = JSON.stringify(resultado.tipos);
+          console.log(resultado.idPunto);
+          this.idpuntoverde = resultado.idPunto;
           await this.tomarfoto();
         }
 

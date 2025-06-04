@@ -42,13 +42,44 @@ export class ApirestService {
       return null;
     }
   }
+
+
+  public async postAporte(photoBase64: string, email, idpunto) {
+    let base64 = photoBase64;
+    if (photoBase64.startsWith('data:image')) {
+      base64 = photoBase64.split(',')[1];
+    }
+    console.log("idpunto en api: ", idpunto);
+    try {
+      const createResponse = await fetch('https://respawnen3.duckdns.org/api/aportes', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          imageBase64: base64,
+          correo_usuario: email,
+          idpunt: idpunto
+        }),
+      });
+
+      if (!createResponse.ok) {
+        throw new Error('Error al crear el aporte');
+      }
+
+      return await createResponse.json();
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
   public async getQrInfo(qr: string) {
     try {
       const response = await fetch(`https://respawnen3.duckdns.org/api/qr/${encodeURIComponent(qr)}`);
       if (!response.ok) {
         throw new Error('Error en la respuesta del servidor');
       }
-      const data = await response.json(); 
+      const data = await response.json();
       return data;
     } catch (error) {
       console.error(error);
