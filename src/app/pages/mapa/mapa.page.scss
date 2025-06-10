@@ -1,31 +1,23 @@
+#map {
+  height: 100%;
+  width: 100%;
+}
+
 .fondo {
-  --background: transparent; /* Elimina color blanco de fondo por defecto */
+  --background: transparent;
+  /* Elimina color blanco de fondo por defecto */
   background-image: url('/assets/FONDO.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  position: relative; /* Necesario para posicionar el botón correctamente */
-}
-
-
-
-.imagen-container {
-  margin-bottom: 30px; /* Ajusta la distancia entre la imagen y el botón */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   position: relative;
-}
-
-.imagen-mapa {
-  width: 700px;  /* Ajusta el tamaño de la imagen */
-  height: auto;
-  margin-top: 90px; /* Mueve la imagen hacia abajo */
+  /* Necesario para posicionar el botón correctamente */
 }
 
 .bottom-button {
   position: absolute;
-  bottom: 30px; /* Ajusta la distancia entre el botón y la parte inferior de la pantalla */
+  bottom: 30px;
+  /* Ajusta la distancia entre el botón y la parte inferior de la pantalla */
   left: 0;
   right: 0;
   display: flex;

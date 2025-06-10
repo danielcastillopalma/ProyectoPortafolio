@@ -37,14 +37,14 @@ export class CamaraPage implements OnInit {
       console.log('Imagen capturada: ', this.base64Image);
 
       const resultado = await this.photoai.analyzeImage(this.base64Image);
-      console.log('Resultado de Google Vision:', resultado);
+      //console.log('Resultado de Google Vision:', resultado);
       this.photoai.procesarJSON(resultado);
       if (this.check.compareResiduos(this.photoai.procesarJSON(resultado), this.resultadoqr)) {
         console.log("acá entra");
         const user = await FirebaseAuthentication.getCurrentUser()
         //console.log("foto: ", this.base64Image);
         //console.log("usuario: ", user.user?.email);
-        console.log("idpv: ", this.idpuntoverde)
+        //console.log("idpv: ", this.idpuntoverde)
         await this.api.postAporte(this.base64Image, user.user?.email, this.idpuntoverde);
         
         this.toast.alert("Aporte ecológico", "Duoc viña", "Aporte Aceptado", ['Aceptar']);

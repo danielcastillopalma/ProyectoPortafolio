@@ -1,20 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonContent } from '@ionic/angular/standalone';
+import * as L from 'leaflet';
+import { MapService } from 'src/app/services/map.service';
 
 @Component({
   selector: 'app-mapa',
   standalone: true,
   templateUrl: './mapa.page.html',
   styleUrls: ['./mapa.page.scss'],
-  imports: [IonContent, CommonModule, FormsModule]
+  imports: [IonContent, CommonModule, FormsModule],
 })
-export class MapaPage implements OnInit {
+export class MapaPage implements AfterViewInit {
 
-  constructor() { }
+  constructor(private map: MapService) { }
 
-  ngOnInit() {
+  ngAfterViewInit() {
+    this.map.InitializeMap();
   }
+
 
 }
