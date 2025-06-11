@@ -1,26 +1,27 @@
 import { Injectable } from '@angular/core';
 import * as L from 'leaflet';
 import { Marker } from '../interfaces/marker';
+import { ApirestService } from './apirest.service';
+import { traducirResiduo } from '../shared/constants/tipo-residuo.ts';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MapService {
   private map!: L.Map;
-  //lat: number, lng: number, label: string, icon: string
+  //lat: number, lng: number, label: string,descripcion:string, icon: string
   private Markers: Marker[] = [
-    { lat: -33.033694, lng: -71.533163, label: 'Reciclaje de Electrónicos', icon: 'assets/mapIcons/electronics.png' },
-    { lat: -33.034056, lng: -71.533997, label: 'Reciclaje de Plástico', icon: 'assets/mapIcons/plastic.png' },
-
+    //{ lat: -33.033694, lng: -71.533163, label: 'Reciclaje de Electrónicos', icon: 'assets/mapIcons/electronics.png' },
+    // { lat: -33.034056, lng: -71.533997, label: 'Reciclaje de Plástico', icon: 'assets/mapIcons/plastic.png' },
   ]
+  //ACA DEFINO LOS LIMITES DEL MAPA
   private bounds = L.latLngBounds(
     [-33.035552, -71.536505],
     [-33.0330, -71.5320]
   );
-
-  constructor() { }
-
-  InitializeMap(containerId: string = 'map') {
+  constructor(private api: ApirestService) { }
+  //FUNCIÓN PRINCIPAL
+  async InitializeMap(containerId: string = 'map') {
     this.map = L.map(containerId, {
       center: [-33.034090, -71.533694],
       zoom: 17,
@@ -45,11 +46,25 @@ export class MapService {
     // Agrega polígono
     this.addPolygon();
 
-    this.addMarkers();
+    // this.addMarkers();
+    await this.getPuntosVerdes();
 
     setTimeout(() => this.map.invalidateSize(), 100);
   }
+  //ESTA FUNCIÓN OBTIENE LOS PUNTOS VERDES DESDE LA API REST
+  public async getPuntosVerdes() {
+    const resultado = await this.api.getPuntosVerdes();
+    const puntosVerdes = resultado.map(i => ({
+      nombre: i[0], latitud: i[1], longitud: i[2], descripcion: i[3], tipoResiduo: i[4]
+    }))
 
+    for (let punto of puntosVerdes) {
+      this.addMarker(punto.latitud, punto.longitud, punto.nombre, `assets/mapIcons/${traducirResiduo(punto.tipoResiduo)}.png`);
+    }
+    console.log(puntosVerdes);
+  }
+
+  //ESTA FUNCION AÑADE EL POLIGONO AZUL QUE MUESTRA LA SEDE (NO TOCAR)
   private addPolygon() {
     if (!this.map) return;
     L.polygon([
@@ -66,24 +81,22 @@ export class MapService {
       [-33.034095, -71.534112],
     ]).addTo(this.map);
   }
-
-  // ⚠️ Usa esto para acceder desde otras funciones
+  //NO SÉ QUE HACE, LA SAQUE DE LA DOCUMENTACIÓN, AUN NO LA USO.
   getMap(): L.Map {
     if (!this.map) {
       throw new Error("Mapa no inicializado. Llama primero a InitializeMap().");
     }
     return this.map;
   }
-
-  // Puedes crear funciones que usen el mapa así:
+  //NO SÉ QUE HACE, LA SAQUE DE LA DOCUMENTACIÓN, AUN NO LA USO.
   public flyToLocation(lat: number, lng: number, zoom: number = 17) {
     this.getMap().flyTo([lat, lng], zoom);
   }
-
+  //ESTA FUNCION CREA EL MARCADOR QUE USAREMOS DESPUÉS.
   public addMarker(lat: number, lng: number, label: string, iconUrl: string) {
     const customIcon = L.icon({
       iconUrl: iconUrl,
-      iconSize: [30, 30], // puedes ajustar el tamaño según el icono
+      iconSize: [30, 30],
     });
 
     const marker = L.marker([lat, lng], { icon: customIcon }).addTo(this.getMap());
@@ -92,7 +105,8 @@ export class MapService {
       marker.bindPopup(label);
     }
   }
-  public addMarkers(marcadores: Marker[] = this.Markers) {
+  //ESTA FUNCIÓN AÑADE LOS MARCADORES QUE EXTRAEMOS DE LA BASE DE DATOS.
+  public addMarkers(marcadores: Marker[]) {
     for (let marcador of marcadores) {
       this.addMarker(marcador.lat, marcador.lng, marcador.label, marcador.icon)
     }

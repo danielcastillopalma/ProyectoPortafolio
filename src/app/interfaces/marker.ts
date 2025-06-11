@@ -3,5 +3,6 @@ export interface Marker {
     lat:number,
     lng:number,
     label:string,
+    description:string,
     icon:string
 }
