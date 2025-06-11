@@ -1,0 +1,36 @@
+.fondo {
+    --background: transparent;
+    /* Elimina color blanco de fondo por defecto */
+    background-image: url('/assets/FONDO.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    /* Necesario para posicionar el botón correctamente */
+}
+
+.contenedor-card {
+    padding: 30px 20px;
+    /* Espacio arriba y a los lados */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Centra horizontalmente */
+}
+
+.titulo-home {
+    font-family: 'Cal Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.logo_menu {
+    width: 130px;
+    margin-top: 0px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

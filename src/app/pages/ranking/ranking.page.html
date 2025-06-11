@@ -1,0 +1,31 @@
+<ion-content class="fondo">
+  <div class="contenedor-card">
+    <h2 class="titulo-home">RANKING DE APORTES</h2>
+  </div>
+
+
+  <ion-row>
+    <ion-col size="2">
+      Rank
+    </ion-col>
+    <ion-col size="7">
+      Nombre
+    </ion-col>
+    <ion-col size="auto">
+      Puntos
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngFor="let user of users;index as i">
+    <ion-col size="2">
+     {{ i+1}}
+    </ion-col>
+    <ion-col size="8">
+      {{user.name}}
+    </ion-col>
+    <ion-col size="auto">
+      {{user.ranking}}
+    </ion-col>
+  </ion-row>
+
+</ion-content>

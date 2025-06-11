@@ -31,11 +31,28 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/blog/blog.page').then((m) => m.BlogPage),
       },
       {
+        path: 'rewards',
+        loadComponent: () => import('./pages/rewards/rewards.page').then((m) => m.RewardsPage),
+      },
+      {
+        path: 'ranking',
+        loadComponent: () => import('./pages/ranking/ranking.page').then((m) => m.RankingPage),
+      },
+      {
         path: '',
         redirectTo: 'home',
         pathMatch: 'full'
       }
     ],
+  },
+  {
+    path: 'rewards',
+    loadComponent: () => import('./pages/rewards/rewards.page').then(m => m.RewardsPage)
+  },
+  {
+    path: 'ranking',
+    loadComponent: () => import('./pages/ranking/ranking.page').then(m => m.RankingPage)
   }
+
 ];
 

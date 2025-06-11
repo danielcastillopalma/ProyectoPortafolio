@@ -56,6 +56,19 @@ export class ApirestService {
       return null;
     }
   }
+  public async getRankingUsuarios() {
+    try {
+      const response = await fetch(`https://respawnen3.duckdns.org/api/ranking`);
+      if (!response.ok) {
+        throw new Error('Error en la respuesta del servidor al tratar de obtener los datos de usuarios');
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
 
   public async postAporte(photoBase64: string, email, idpunto) {
     let base64 = photoBase64;
