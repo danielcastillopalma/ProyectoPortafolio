@@ -219,5 +219,65 @@ export class ApirestService {
     }
   }
 
+  public async postBlog(
+    photoBase64: string,
+    email: string,
+    mensaje: string,
+    tipoConsulta: string
+  ) {
+    try {
+      // Elimina la cabecera 'data:image/...;base64,' si viene incluida
+      let base64 = photoBase64;
+      if (photoBase64.startsWith('data:image')) {
+        base64 = photoBase64.split(',')[1];
+      }
+
+      if (tipoConsulta === "Reporte") {
+        const response = await fetch('https://respawnen3.duckdns.org/api/blog/reporte', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            imageBase64: base64,
+            correo_usuario: email,
+            mensaje: mensaje
+          }),
+        });
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(`Error al crear el reporte: ${errorText}`);
+        }
+
+        return await response.json();
+      } else if (tipoConsulta == "Sugerencia") {
+        const response = await fetch('https://respawnen3.duckdns.org/api/blog/sugerencia', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            imageBase64: base64,
+            correo_usuario: email,
+            mensaje: mensaje
+          }),
+        });
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(`Error al crear el reporte: ${errorText}`);
+        }
+
+        return await response.json();
+      }
+
+      return null;
+
+    } catch (error) {
+      console.error('Error al enviar el reporte:', error);
+      return null;
+    }
+  }
 
 }

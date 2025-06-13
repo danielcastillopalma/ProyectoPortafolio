@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { IonCard, IonLabel, IonItemOptions, IonItemOption, IonIcon, IonItemSliding, IonItem, IonThumbnail, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonContent } from '@ionic/angular/standalone';
+import { Router, RouterModule } from '@angular/router';
+import { IonCard, IonLabel, IonButton, IonItemOptions, IonItemOption, IonIcon, IonItemSliding, IonItem, IonThumbnail, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonContent } from '@ionic/angular/standalone';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { FirebaseAuthentication } from '@capacitor-firebase/authentication';
 import { RangoService } from 'src/app/services/rango/rango.service';
@@ -12,7 +12,7 @@ import { ApirestService } from 'src/app/services/apirest.service';
   standalone: true,
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [IonContent, IonIcon, IonItemOption, IonItemOptions, IonItemSliding, IonItem, IonThumbnail, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, RouterModule, IonLabel],
+  imports: [IonContent, IonIcon, IonButton, IonItemOption, IonItemOptions, IonItemSliding, IonItem, IonThumbnail, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, RouterModule, IonLabel],
 })
 export class HomePage implements AfterViewInit {
   nombre: string = 'nombre';
@@ -20,7 +20,7 @@ export class HomePage implements AfterViewInit {
   foto: string = 'foto';
   rango1: string = 'rango';
   puntos: number = 0;
-  constructor(private auth: FirebaseService, private rango: RangoService, private api: ApirestService) { }
+  constructor(private route: Router, private auth: FirebaseService, private rango: RangoService, private api: ApirestService) { }
   ngAfterViewInit(): void {
     this.getData()
   }
@@ -34,6 +34,10 @@ export class HomePage implements AfterViewInit {
     this.foto = (await FirebaseAuthentication.getCurrentUser()).user?.photoUrl!;
     this.puntos = await this.api.getPuntosUsuario(this.correo);
     this.rango1 = (await this.rango.obtenerRango(this.puntos));
+  }
+
+  router(ruta: string) {
+    this.route.navigateByUrl('tabs/blog');
   }
 }
 

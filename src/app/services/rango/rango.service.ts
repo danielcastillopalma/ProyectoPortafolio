@@ -19,7 +19,7 @@ export class RangoService {
     console.log('Rangos obtenidos:', rangos);
 
     const rangosOrdenados = rangos
-      .map(r => ({ ...r, puntajeMinimo: Number(r.puntajeMinimo) }))  // Asegurar número
+      .map(r => ({ ...r, puntajeMinimo: Number(r.puntajeMinimo) }))
       .sort((a, b) => a.puntajeMinimo - b.puntajeMinimo);
 
     console.log('Rangos ordenados:', rangosOrdenados);
