@@ -2,7 +2,20 @@
 
 
   <div id="map"></div>
-
+  <div class="floating-select">
+    <ion-list>
+      <ion-item>
+        <ion-select aria-label="Residuos" interface="popover" placeholder="Seleccionar residuo"
+          (ionChange)="handleChange($event)" (ionCancel)="handleCancel()" (ionDismiss)="handleDismiss()">
+          <ion-select-option value="PET">PET</ion-select-option>
+          <ion-select-option value="Lata">Latas</ion-select-option>
+          <ion-select-option value="Vidrio">Vidrio</ion-select-option>
+          <ion-select-option value="Electrónicos">Electrónicos</ion-select-option>
+          <ion-select-option value="Baterías">Baterías</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+  </div>
 
 
 </ion-content>

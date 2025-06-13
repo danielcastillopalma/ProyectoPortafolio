@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { FirebaseAuthentication } from '@capacitor-firebase/authentication';
+import { EmailService } from './email/email.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApirestService {
-
-  constructor() { }
-
+  private _emailService!: EmailService;
+  constructor(private injector: Injector) { }
+  //ESTO VERIFICA SI HAY UN USUARIO CON ESE CORREO SI NO LO CREA (SÓLO SI ES INSTITUCIONAL)
   public async getEmail(email: string, displayName: string) {
     try {
       const response = await fetch(`https://respawnen3.duckdns.org/api/querys/${encodeURIComponent(email)}`);
@@ -42,7 +43,7 @@ export class ApirestService {
       return null;
     }
   }
-
+  //ESTO OBTIENE LA LISTA DE PUNTOSVERDES
   public async getPuntosVerdes() {
     try {
       const response = await fetch(`https://respawnen3.duckdns.org/api/mapa`);
@@ -56,6 +57,7 @@ export class ApirestService {
       return null;
     }
   }
+  //ESTO OBTIENE LA LISTA DE USUARIOS Y SUS PUNTOS
   public async getRankingUsuarios() {
     try {
       const response = await fetch(`https://respawnen3.duckdns.org/api/ranking`);
@@ -82,6 +84,64 @@ export class ApirestService {
       return null;
     }
   }
+  private get email(): EmailService {
+    if (!this._emailService) {
+      this._emailService = this.injector.get(EmailService);
+    }
+    return this._emailService;
+  }
+
+  public async canjearRecompensa(email: string, id_recom: number, nomRecom: string) {
+    try {
+      const createResponse = await fetch('https://respawnen3.duckdns.org/api/rewards', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          correo_usuario: email,
+          idRec: id_recom,
+        }),
+      });
+
+      if (!createResponse.ok) {
+        throw new Error('Error al canjear Recompensa');
+      }
+
+      const nombre = (await FirebaseAuthentication.getCurrentUser()).user?.displayName;
+      this.email.sentEmail(email, nombre!, nomRecom); // accede usando el getter
+
+      return await createResponse.json();
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+
+  public async enviarEmail(email: string, asunto: string, content: string) {
+    try {
+      const createResponse = await fetch('https://respawnen3.duckdns.org/api/enviar-correo', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          "to": email,
+          "asunto": asunto,
+          "mensaje": content
+        }),
+      });
+
+      if (!createResponse.ok) {
+        throw new Error('Error al enviar correo.');
+      }
+
+      return await createResponse.json();
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+
+
 
   public async postAporte(photoBase64: string, email, idpunto) {
     let base64 = photoBase64;
@@ -120,6 +180,39 @@ export class ApirestService {
       }
       const data = await response.json();
       return data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
+
+  public async getPuntosUsuario(email: string) {
+    try {
+      const response = await fetch(`https://respawnen3.duckdns.org/api/rewards/${encodeURIComponent(email)}`);
+      if (!response.ok) {
+        throw new Error('Error en la respuesta del servidor');
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+  public async getRangos() {
+    try {
+      const response = await fetch(`https://respawnen3.duckdns.org/api/rewards/lvl`);
+      if (!response.ok) {
+        throw new Error('Error en la respuesta del servidor');
+      }
+      const data = await response.json();
+      const rangos = data.map((item: any[]) => ({
+        id: item[0],
+        nombre: item[1],
+        puntajeMinimo: item[2],
+      }));
+      return rangos;
     } catch (error) {
       console.error(error);
       throw error;

@@ -3,12 +3,16 @@ import * as L from 'leaflet';
 import { Marker } from '../interfaces/marker';
 import { ApirestService } from './apirest.service';
 import { traducirResiduo } from '../shared/constants/tipo-residuo.ts';
+import { AlertService } from './alert.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MapService {
   private map!: L.Map;
+  private markers: L.Marker[] = [];
+  public tipoResiduoSeleccionado: string | null = null;
+
   //lat: number, lng: number, label: string,descripcion:string, icon: string
   private Markers: Marker[] = [
     //{ lat: -33.033694, lng: -71.533163, label: 'Reciclaje de Electrónicos', icon: 'assets/mapIcons/electronics.png' },
@@ -19,7 +23,7 @@ export class MapService {
     [-33.035552, -71.536505],
     [-33.0330, -71.5320]
   );
-  constructor(private api: ApirestService) { }
+  constructor(private api: ApirestService, private alert: AlertService) { }
   //FUNCIÓN PRINCIPAL
   async InitializeMap(containerId: string = 'map') {
     this.map = L.map(containerId, {
@@ -47,22 +51,50 @@ export class MapService {
     this.addPolygon();
 
     // this.addMarkers();
-    await this.getPuntosVerdes();
+    await this.getPuntosVerdes(this.tipoResiduoSeleccionado);
 
     setTimeout(() => this.map.invalidateSize(), 100);
   }
   //ESTA FUNCIÓN OBTIENE LOS PUNTOS VERDES DESDE LA API REST
-  public async getPuntosVerdes() {
+  public async getPuntosVerdes(tipoSeleccionado: string | null = null) {
+    console.log("Tipo seleccionado1: ", tipoSeleccionado);
     const resultado = await this.api.getPuntosVerdes();
     const puntosVerdes = resultado.map(i => ({
-      nombre: i[0], latitud: i[1], longitud: i[2], descripcion: i[3], tipoResiduo: i[4]
-    }))
+      nombre: i[0],
+      latitud: i[1],
+      longitud: i[2],
+      descripcion: i[3],
+      tipoResiduo: i[4]
+    }));
+    console.log("Puntos verdes: ", puntosVerdes)
 
-    for (let punto of puntosVerdes) {
-      this.addMarker(punto.latitud, punto.longitud, punto.nombre, `assets/mapIcons/${traducirResiduo(punto.tipoResiduo)}.png`);
+    // Limpia los marcadores anteriores
+    this.markers.forEach(m => this.map.removeLayer(m));
+    this.markers = [];
+
+    const filtrados = tipoSeleccionado
+      ? puntosVerdes.filter(p => p.tipoResiduo === tipoSeleccionado)
+      : puntosVerdes;
+    console.log("Filtrados: ", filtrados);
+    console.log("largof: ", filtrados.length);
+    if (filtrados.length == 0) {
+      this.alert.alert("No hay puntos disponibles", "DuocUC", "Lamentablemente no hay puntos disponibles para ese tipo de residuo, intenta más tarde.", ["Aceptar"])
     }
-    console.log(puntosVerdes);
+
+    for (let punto of filtrados) {
+      const marker = this.addMarker(
+        punto.latitud,
+        punto.longitud,
+        punto.nombre,
+        `assets/mapIcons/${traducirResiduo(punto.tipoResiduo)}.png`
+      );
+      this.markers.push(marker);
+
+    }
+
+    console.log(filtrados);
   }
+
 
   //ESTA FUNCION AÑADE EL POLIGONO AZUL QUE MUESTRA LA SEDE (NO TOCAR)
   private addPolygon() {
@@ -93,7 +125,7 @@ export class MapService {
     this.getMap().flyTo([lat, lng], zoom);
   }
   //ESTA FUNCION CREA EL MARCADOR QUE USAREMOS DESPUÉS.
-  public addMarker(lat: number, lng: number, label: string, iconUrl: string) {
+  public addMarker(lat: number, lng: number, label: string, iconUrl: string): L.Marker {
     const customIcon = L.icon({
       iconUrl: iconUrl,
       iconSize: [30, 30],
@@ -104,7 +136,10 @@ export class MapService {
     if (label) {
       marker.bindPopup(label);
     }
+
+    return marker;
   }
+
   //ESTA FUNCIÓN AÑADE LOS MARCADORES QUE EXTRAEMOS DE LA BASE DE DATOS.
   public addMarkers(marcadores: Marker[]) {
     for (let marcador of marcadores) {

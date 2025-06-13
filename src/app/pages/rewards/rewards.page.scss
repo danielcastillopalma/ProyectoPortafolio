@@ -13,8 +13,15 @@ ion-item {
     --background: #4cc229 !important;
 }
 
+.fake-disabled {
+    pointer-events: auto;
+    /* importante */
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 .contenedor-card {
-    padding: 30px 20px;
+    padding-top: 20px;
     /* Espacio arriba y a los lados */
     display: flex;
     flex-direction: column;
@@ -25,6 +32,15 @@ ion-item {
 .titulo-home {
     font-family: 'Cal Sans', sans-serif;
     font-size: 20px;
+    font-weight: 400;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.bajada {
+    font-family: 'Cal Sans', sans-serif;
+    font-size: 15px;
     font-weight: 400;
     color: #ffffff;
     text-align: center;

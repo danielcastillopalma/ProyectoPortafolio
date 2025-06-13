@@ -2,11 +2,29 @@
   <div class="contenedor-card">
     <h2 class="titulo-home">RECOMPENSAS</h2>
   </div>
+  <div class="contenedor">
+    <h4 class="bajada">Tienes: {{puntos}} Pts</h4>
+  </div>
+
 
   <ion-item *ngFor="let reward of rewards">
-    <ion-label>{{reward.name}}</ion-label>
-    <ion-button slot="end">{{reward.ptj}}</ion-button>
+    <ion-label>{{ reward.name }}</ion-label>
+    <ng-container *ngIf="puntos < reward.ptj; else reward1">
+      <ion-button [id]="'btnDesactivado' + reward.id_recom" slot="end" fill="outline" color="medium"
+        class="fake-disabled" (click)="preventClick($event)">
+        {{reward.ptj}}
+      </ion-button>
+      <ion-popover [trigger]="'btnDesactivado' + reward.id_recom" side="top">
+        <ng-template>
+          <ion-content class="ion-padding">No tienes suficientes puntos</ion-content>
+        </ng-template>
+      </ion-popover>
+    </ng-container>
+    <ng-template #reward1>
+      <ion-button slot="end" (click)="canjearRecompensa(reward.id_recom,reward.name)">
+        {{ reward.ptj }}
+      </ion-button>
+    </ng-template>
   </ion-item>
-
 
 </ion-content>
