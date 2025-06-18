@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { IonContent, IonButton, IonRow, IonCol } from '@ionic/angular/standalone';
 import { ApirestService } from 'src/app/services/apirest.service';
 import { PhotoaiService } from 'src/app/services/photoai.service';
@@ -6,14 +6,16 @@ import { QRService } from 'src/app/services/qr.service';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { ResiduosCheckService } from 'src/app/services/residuos-check.service';
 import { AlertService } from 'src/app/services/alert.service';
+import { NgIf, NgForOf, CommonModule } from '@angular/common';
 import { FirebaseAuthentication } from '@capacitor-firebase/authentication';
+
 
 @Component({
   selector: 'app-camara',
   templateUrl: './camara.page.html',
   styleUrls: ['./camara.page.scss'],
   standalone: true,
-  imports: [IonContent, IonButton, IonRow, IonCol]
+  imports: [IonContent, IonButton, IonRow, IonCol, CommonModule]
 })
 export class CamaraPage implements OnInit {
   resultadoVisionAI: any;
@@ -21,9 +23,15 @@ export class CamaraPage implements OnInit {
   constructor(private toast: AlertService, private check: ResiduosCheckService, private qr: QRService, private api: ApirestService, private photoai: PhotoaiService) { }
   resultadoqr: string = "resultado";
   idpuntoverde: number = 0;
-  ngOnInit() {
-    //this.qr.startScan();
+  async ngOnInit() {
+    console.log('ngAfterViewInit ejecutado');
+    this.aportes = await this.getAportes();
+    console.log(this.aportes);
+
   }
+  aportes: any = []; // array de arrays de strings
+  sinAportes = false; // para mostrar mensaje si está vacío
+
 
   async tomarfoto() {
     try {
@@ -33,6 +41,7 @@ export class CamaraPage implements OnInit {
         resultType: CameraResultType.Base64,
         source: CameraSource.Camera,
       });
+
       this.base64Image = image.base64String || '';
       console.log('Imagen capturada: ', this.base64Image);
 
@@ -46,14 +55,39 @@ export class CamaraPage implements OnInit {
         //console.log("usuario: ", user.user?.email);
         //console.log("idpv: ", this.idpuntoverde)
         await this.api.postAporte(this.base64Image, user.user?.email, this.idpuntoverde);
-        
-        this.toast.alert("Aporte ecológico", "Duoc viña", "Aporte Aceptado", ['Aceptar']);
+
+        this.toast.alert("Aporte ecológico", "Duoc viña", "Aporte Aceptado", [{
+          text: "Aceptar",
+          handler: () => {
+            this.getAportes();
+            window.location.reload();
+          }
+        }]);
       } else {
         console.log("acá no entra");
         this.toast.alert("Aporte ecológico", "Duoc viña", "Aporte NO Aceptado", ['Aceptar']);
       };
     } catch (error) {
       console.error('Error al capturar o analizar la foto: ', error);
+    }
+  }
+
+  public async getAportes() {
+    try {
+      const email = (await FirebaseAuthentication.getCurrentUser()).user?.email;
+      const response = await this.api.getAportesUsuario(email!);
+
+      if (response && response.length > 0) {
+        return response;
+      } else {
+        this.sinAportes = true;
+        return [];
+
+      }
+    } catch (error) {
+      console.error("Error al obtener los aportes");
+      this.sinAportes = true;
+      return [];
     }
   }
 
@@ -74,10 +108,20 @@ export class CamaraPage implements OnInit {
           this.resultadoqr = JSON.stringify(resultado.tipos);
           console.log(resultado.idPunto);
           this.idpuntoverde = resultado.idPunto;
-          await this.tomarfoto();
+          await this.toast.alert(
+            "Punto escaneado.",
+            "DuocUC",
+            "Este punto acepta: " + resultado.tipos[0],
+            [
+              {
+                text: "Aportar",
+                handler: () => {
+                  this.tomarfoto();
+                }
+              }
+            ]
+          );
         }
-
-
       } else {
         console.warn('No se escaneó ningún QR.');
       }

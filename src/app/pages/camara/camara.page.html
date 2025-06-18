@@ -6,6 +6,23 @@
       <ion-button (click)="openQR()">Escanear Punto Verde</ion-button>
     </ion-col>
   </ion-row>
-  <ion-row><h1>{{resultadoqr}}</h1></ion-row>
-  
+ <h3>Aportes</h3>
+  <ng-container *ngIf="!sinAportes; else sinAportesMsg">
+    <ion-row *ngFor="let aporte of aportes; index as i">
+      <ion-col size="1">{{ i + 1 }}</ion-col>
+      <ion-col>{{ aporte[0] }}</ion-col>
+      <ion-col>{{ aporte[1] }}</ion-col>
+      <ion-col>{{ aporte[2] }}</ion-col>
+      <ion-col>{{ aporte[3] }}</ion-col>
+    </ion-row>
+  </ng-container>
+
+  <ng-template #sinAportesMsg>
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <p>No hay aportes registrados aún.</p>
+      </ion-col>
+    </ion-row>
+  </ng-template>
+  <h1>Fin</h1>
 </ion-content>

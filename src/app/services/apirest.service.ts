@@ -279,5 +279,19 @@ export class ApirestService {
       return null;
     }
   }
+  //Aca consigo los aportes del usuario
+  async getAportesUsuario(correo: string) {
+    try {
+      const response = await fetch(`https://respawnen3.duckdns.org/api/aportes/${encodeURIComponent(correo)}`);
+      if (!response.ok) {
+        throw new Error('Error en la respuesta del servidor');
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
 
 }
