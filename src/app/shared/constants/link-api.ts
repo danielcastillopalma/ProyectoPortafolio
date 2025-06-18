@@ -1,0 +1,1 @@
+export const api = 'https://respawnen3.duckdns.org';

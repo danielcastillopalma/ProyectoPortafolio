@@ -1,21 +1,23 @@
 import { Injectable, Injector } from '@angular/core';
 import { FirebaseAuthentication } from '@capacitor-firebase/authentication';
 import { EmailService } from './email/email.service';
+import { api } from '../shared/constants/link-api';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApirestService {
   private _emailService!: EmailService;
+
   constructor(private injector: Injector) { }
   //ESTO VERIFICA SI HAY UN USUARIO CON ESE CORREO SI NO LO CREA (SÓLO SI ES INSTITUCIONAL)
   public async getEmail(email: string, displayName: string) {
     try {
-      const response = await fetch(`https://respawnen3.duckdns.org/api/querys/${encodeURIComponent(email)}`);
+      const response = await fetch(`${api}/api/querys/${encodeURIComponent(email)}`);
 
       if (response.status === 404) {
         // No encontrado → crear usuario
-        const createResponse = await fetch('https://respawnen3.duckdns.org/api/querys', {
+        const createResponse = await fetch(`${api}/api/querys`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -46,7 +48,7 @@ export class ApirestService {
   //ESTO OBTIENE LA LISTA DE PUNTOSVERDES
   public async getPuntosVerdes() {
     try {
-      const response = await fetch(`https://respawnen3.duckdns.org/api/mapa`);
+      const response = await fetch(`${api}/api/mapa`);
       if (!response.ok) {
         throw new Error('Error en la respuesta del servidor al tratar de obtener los datos de Puntos Verdes');
       }
@@ -60,7 +62,7 @@ export class ApirestService {
   //ESTO OBTIENE LA LISTA DE USUARIOS Y SUS PUNTOS
   public async getRankingUsuarios() {
     try {
-      const response = await fetch(`https://respawnen3.duckdns.org/api/ranking`);
+      const response = await fetch(`${api}/api/ranking`);
       if (!response.ok) {
         throw new Error('Error en la respuesta del servidor al tratar de obtener los datos de usuarios');
       }
@@ -73,7 +75,7 @@ export class ApirestService {
   }
   public async getRewards() {
     try {
-      const response = await fetch(`https://respawnen3.duckdns.org/api/rewards`);
+      const response = await fetch(`${api}/api/rewards`);
       if (!response.ok) {
         throw new Error('Error en la respuesta del servidor al tratar de obtener los datos de recompensas');
       }
@@ -93,7 +95,7 @@ export class ApirestService {
 
   public async canjearRecompensa(email: string, id_recom: number, nomRecom: string) {
     try {
-      const createResponse = await fetch('https://respawnen3.duckdns.org/api/rewards', {
+      const createResponse = await fetch(`${api}/api/rewards`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -118,7 +120,7 @@ export class ApirestService {
 
   public async enviarEmail(email: string, asunto: string, content: string) {
     try {
-      const createResponse = await fetch('https://respawnen3.duckdns.org/api/enviar-correo', {
+      const createResponse = await fetch(`${api}/api/enviar-correo`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -150,7 +152,7 @@ export class ApirestService {
     }
     console.log("idpunto en api: ", idpunto);
     try {
-      const createResponse = await fetch('https://respawnen3.duckdns.org/api/aportes', {
+      const createResponse = await fetch(`${api}/api/aportes`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -174,7 +176,7 @@ export class ApirestService {
   }
   public async getQrInfo(qr: string) {
     try {
-      const response = await fetch(`https://respawnen3.duckdns.org/api/qr/${encodeURIComponent(qr)}`);
+      const response = await fetch(`${api}/api/qr/${encodeURIComponent(qr)}`);
       if (!response.ok) {
         throw new Error('Error en la respuesta del servidor');
       }
@@ -189,7 +191,7 @@ export class ApirestService {
 
   public async getPuntosUsuario(email: string) {
     try {
-      const response = await fetch(`https://respawnen3.duckdns.org/api/rewards/${encodeURIComponent(email)}`);
+      const response = await fetch(`${api}/api/rewards/${encodeURIComponent(email)}`);
       if (!response.ok) {
         throw new Error('Error en la respuesta del servidor');
       }
@@ -202,7 +204,7 @@ export class ApirestService {
   }
   public async getRangos() {
     try {
-      const response = await fetch(`https://respawnen3.duckdns.org/api/rewards/lvl`);
+      const response = await fetch(`${api}/api/rewards/lvl`);
       if (!response.ok) {
         throw new Error('Error en la respuesta del servidor');
       }
@@ -233,7 +235,7 @@ export class ApirestService {
       }
 
       if (tipoConsulta === "Reporte") {
-        const response = await fetch('https://respawnen3.duckdns.org/api/blog/reporte', {
+        const response = await fetch(`${api}/api/blog/reporte`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -252,7 +254,7 @@ export class ApirestService {
 
         return await response.json();
       } else if (tipoConsulta == "Sugerencia") {
-        const response = await fetch('https://respawnen3.duckdns.org/api/blog/sugerencia', {
+        const response = await fetch(`${api}/api/blog/sugerencia`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -282,7 +284,7 @@ export class ApirestService {
   //Aca consigo los aportes del usuario
   async getAportesUsuario(correo: string) {
     try {
-      const response = await fetch(`https://respawnen3.duckdns.org/api/aportes/${encodeURIComponent(correo)}`);
+      const response = await fetch(`${api}/api/aportes/${encodeURIComponent(correo)}`);
       if (!response.ok) {
         throw new Error('Error en la respuesta del servidor');
       }
