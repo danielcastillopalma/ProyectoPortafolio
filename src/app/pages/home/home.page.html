@@ -34,4 +34,18 @@
     Reportes y sugerencias.
   </ion-button>
 
+  <h3>Sección de noticias</h3>
+
+  <ion-card *ngFor="let new of noticias">
+    <ion-card-header>
+      <small>Publicado el {{new[3]}}</small>
+      <ion-card-title>{{new[1]}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{new[2]}}
+    </ion-card-content>
+    <ion-card-content>
+      <small>Publicado por {{new[5]}}</small>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

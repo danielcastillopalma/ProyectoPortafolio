@@ -1,10 +1,11 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { IonCard, IonLabel, IonButton, IonItemOptions, IonItemOption, IonIcon, IonItemSliding, IonItem, IonThumbnail, IonContent } from '@ionic/angular/standalone';
+import { IonCard, IonLabel, IonButton, IonCardTitle, IonCardContent, IonCardHeader, IonItemOptions, IonItemOption, IonIcon, IonItemSliding, IonItem, IonThumbnail, IonContent } from '@ionic/angular/standalone';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { FirebaseAuthentication } from '@capacitor-firebase/authentication';
 import { RangoService } from 'src/app/services/rango/rango.service';
 import { ApirestService } from 'src/app/services/apirest.service';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { ApirestService } from 'src/app/services/apirest.service';
   standalone: true,
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [IonContent, IonIcon, IonButton, IonItemOption, IonItemOptions, IonItemSliding, IonItem, IonThumbnail, RouterModule, IonLabel],
+  imports: [IonContent, CommonModule, IonCard,  IonCardContent, IonCardTitle, IonCardHeader, IonIcon, IonButton, IonItemOption, IonItemOptions, IonItemSliding, IonItem, IonThumbnail, RouterModule, IonLabel],
 })
 export class HomePage implements AfterViewInit {
   nombre: string = 'nombre';
@@ -21,9 +22,11 @@ export class HomePage implements AfterViewInit {
   rango1: string = 'rango';
   puntos: number = 0;
   insignia: string = "../assets/Insignias/Sin Rango.png";
+  noticias: any = [];
   constructor(private route: Router, private auth: FirebaseService, private rango: RangoService, private api: ApirestService) { }
   ngAfterViewInit(): void {
-    this.getData()
+    this.getData();
+    this.getNews();
   }
   async logout() {
     this.auth.logout();
@@ -47,7 +50,9 @@ export class HomePage implements AfterViewInit {
     }
 
   }
-
+  async getNews() {
+    this.noticias = await this.api.getNews();
+  }
   router(ruta: string) {
     this.route.navigateByUrl('tabs/blog');
   }

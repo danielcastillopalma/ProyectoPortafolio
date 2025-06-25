@@ -10,10 +10,29 @@
 ion-item {
   border-radius: 20px;
   --background: #43B02A;
+  margin-bottom: 1%;
 }
 
 p {
   color: #ffffff;
+}
+
+h3 {
+  padding: 5%;
+  width: 100%;
+  text-align: center;
+}
+
+ion-card {
+  background-color: #AFDB6B;
+}
+
+ion-card-title {
+  color: black;
+}
+
+ion-card-content {
+  color: darkslategray;
 }
 
 ion-button {
