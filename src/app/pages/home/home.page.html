@@ -21,7 +21,13 @@
       <ion-item-option color="danger" (click)="logout()"><ion-icon
           name="log-out-outline"></ion-icon>Salir</ion-item-option>
     </ion-item-options>
-    <h4>Tienes {{puntos}} y eres rango {{rango1}}</h4>
+    <ion-item>
+      <h4>Tienes <strong>{{puntos}}</strong> puntos, y eres rango <strong>{{rango1}}</strong></h4>
+      <ion-thumbnail slot="end">
+        <img alt="rango" [src]="insignia" crossorigin="anonymous" />
+      </ion-thumbnail>
+    </ion-item>
+
 
   </ion-item-sliding>
   <ion-button color="success" (click)="router('blog')" shape="round">

@@ -20,7 +20,7 @@ export class HomePage implements AfterViewInit {
   foto: string = 'foto';
   rango1: string = 'rango';
   puntos: number = 0;
-  insignia: string = "sr";
+  insignia: string = "../assets/Insignias/Sin Rango.png";
   constructor(private route: Router, private auth: FirebaseService, private rango: RangoService, private api: ApirestService) { }
   ngAfterViewInit(): void {
     this.getData()
@@ -36,12 +36,14 @@ export class HomePage implements AfterViewInit {
       this.foto = (await FirebaseAuthentication.getCurrentUser()).user?.photoUrl!;
       this.puntos = await this.api.getPuntosUsuario(this.correo);
       this.rango1 = (await this.rango.obtenerRango(this.puntos));
+      this.cargarInsignia(this.puntos);
     } catch (error) {
       this.nombre = "Nombre";
       this.correo = "correo@duocuc.cl";
       this.foto = '../assets/photoid.jpg';
-      this.puntos = 100;
+      this.puntos = 10;
       this.rango1 = 'Rango';
+      this.cargarInsignia(this.puntos);
     }
 
   }
@@ -50,14 +52,14 @@ export class HomePage implements AfterViewInit {
     this.route.navigateByUrl('tabs/blog');
   }
   cargarInsignia(pts: number) {
-    if (pts > 0 && pts < 100) {
-      this.insignia = "principiante";
-    } else if (pts > 100 && pts < 500) {
-      this.insignia = "intermedio";
+    if (pts >= 0 && pts <= 100) {
+      this.insignia = "../assets/Insignias/principiante.png";
+    } else if (pts >= 101 && pts <= 500) {
+      this.insignia = "../assets/Insignias/intermedio.png";
     } else if (pts > 500) {
-      this.insignia = "avanzado";
+      this.insignia = "../assets/Insignias/avanzado.png";
     } else {
-      this.insignia = "sr";
+      this.insignia = "../assets/Insignias/Sin Rango.png";
     }
   }
 }
