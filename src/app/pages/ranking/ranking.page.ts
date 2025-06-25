@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonItem, IonLabel, IonRow, IonCol } from '@ionic/angular/standalone';
+import { IonContent, IonRow, IonCol } from '@ionic/angular/standalone';
 import { ApirestService } from 'src/app/services/apirest.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { ApirestService } from 'src/app/services/apirest.service';
   templateUrl: './ranking.page.html',
   styleUrls: ['./ranking.page.scss'],
   standalone: true,
-  imports: [IonContent, IonRow, IonCol, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonList, IonItem, IonLabel]
+  imports: [IonContent, IonRow, IonCol, CommonModule, FormsModule]
 })
 
 export class RankingPage implements OnInit {

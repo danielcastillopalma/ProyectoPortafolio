@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FirebaseAuthentication } from '@capacitor-firebase/authentication';
-import { IonContent, IonCard, IonSelect, IonTextarea, IonSelectOption, IonHeader, IonToolbar, IonButtons, IonTitle, IonIcon, IonInput, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonList, IonItem, IonThumbnail, IonLabel, IonButton, IonModal } from '@ionic/angular/standalone';
+import { IonContent, IonCard, IonSelect, IonTextarea, IonSelectOption, IonHeader, IonToolbar, IonButtons, IonTitle, IonIcon, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonList, IonItem, IonThumbnail, IonLabel, IonButton, IonModal } from '@ionic/angular/standalone';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { AlertService } from 'src/app/services/alert.service';
 import { ApirestService } from 'src/app/services/apirest.service';
@@ -11,7 +11,7 @@ import { CamaraService } from 'src/app/services/camara/camara.service';
   templateUrl: './blog.page.html',
   styleUrls: ['./blog.page.scss'],
   standalone: true,
-  imports: [FormsModule, IonContent, IonSelect, IonTextarea, IonSelectOption, IonCard, IonHeader, IonToolbar, IonButtons, IonTitle, IonIcon, IonInput, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonList, IonItem, IonThumbnail, IonLabel, IonButton, IonModal]
+  imports: [FormsModule, IonContent, IonSelect, IonTextarea, IonSelectOption, IonCard, IonHeader, IonToolbar, IonButtons, IonTitle, IonIcon, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonList, IonItem, IonThumbnail, IonLabel, IonButton, IonModal]
 
 })
 export class BlogPage implements OnInit {

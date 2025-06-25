@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonButton, IonLabel, IonPopover } from '@ionic/angular/standalone';
+import { IonContent,  IonItem, IonButton, IonLabel, IonPopover } from '@ionic/angular/standalone';
 import { ApirestService } from 'src/app/services/apirest.service';
 import { FirebaseAuthentication } from '@capacitor-firebase/authentication';
 import { AlertService } from 'src/app/services/alert.service';
@@ -11,7 +11,7 @@ import { AlertService } from 'src/app/services/alert.service';
   templateUrl: './rewards.page.html',
   styleUrls: ['./rewards.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonPopover, IonItem, IonButton, IonLabel]
+  imports: [IonContent,  CommonModule, FormsModule, IonPopover,  IonItem, IonButton, IonLabel]
 })
 export class RewardsPage implements AfterViewInit {
   rewards: { id_recom: number, name: string; desc: number, ptj: number }[] = [];
@@ -35,11 +35,11 @@ export class RewardsPage implements AfterViewInit {
       this.rewards.push({ id_recom, name, desc, ptj });
     }
   }
-  async canjearRecompensa(id: number,recompensa:string) {
+  async canjearRecompensa(id: number, recompensa: string) {
     const email = (await FirebaseAuthentication.getCurrentUser()).user?.email;
     if (email) {
       try {
-        this.api.canjearRecompensa(email, id,recompensa);
+        this.api.canjearRecompensa(email, id, recompensa);
         await this.getPuntos();
       } catch (error) {
         console.error("Error al canjear la recompensa");

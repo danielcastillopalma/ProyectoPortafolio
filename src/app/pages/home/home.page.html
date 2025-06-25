@@ -1,6 +1,6 @@
 <ion-content class="fondo">
   <div class="contenedor-card">
-    <h1 class="titulo-home">PUNTO VERDE</h1>
+    <h2 class="titulo-home">PUNTO VERDE</h2>
   </div>
 
   <ion-item-sliding>
@@ -8,8 +8,12 @@
       <ion-thumbnail slot="start">
         <img alt="Foto de perfil" [src]="foto" crossorigin="anonymous" />
       </ion-thumbnail>
-      <ion-label>{{nombre}}</ion-label>
-      <ion-label>{{correo}}</ion-label>
+      <ion-label>
+        <p>{{nombre}}</p>
+      </ion-label>
+      <ion-label>
+        <p>{{correo}}</p>
+      </ion-label>
 
     </ion-item>
 
@@ -17,10 +21,10 @@
       <ion-item-option color="danger" (click)="logout()"><ion-icon
           name="log-out-outline"></ion-icon>Salir</ion-item-option>
     </ion-item-options>
-    <h3>Tienes {{puntos}} y eres rango {{rango1}}</h3>
+    <h4>Tienes {{puntos}} y eres rango {{rango1}}</h4>
 
   </ion-item-sliding>
-  <ion-button color="success" (click)="router('blog')">
+  <ion-button color="success" (click)="router('blog')" shape="round">
     Reportes y sugerencias.
   </ion-button>
 

@@ -46,8 +46,43 @@ body.scanner-active {
 }
 
 ion-tab-bar {
-    --background: #43b02a;
+    --background: #43B02A;
     --color: white;
     --color-selected: white;
     border: none !important;
+}
+
+h1 {
+    font-family: 'Lato', serif !important;
+    font-size: 2.6875rem !important;
+    font-weight: bold !important;
+}
+
+h2 {
+    font-family: 'Lato', serif !important;
+    font-size: 2.1rem !important;
+    font-weight: bold !important;
+}
+
+h3 {
+    font-family: 'Lato', serif !important;
+    font-size: 1.5rem !important;
+    font-weight:bold !important;
+}
+
+h4 {
+    font-family: 'Lato', serif !important;
+    font-size: 1.25rem !important;
+}
+h5 {
+    font-family: 'Lato', serif !important;
+    font-size: 1rem !important;
+}
+p {
+    font-family: 'Lato', serif !important;
+    font-size: 1rem !important;
+}
+small{
+    font-family: 'Lato', serif !important;
+    font-size: 0.8125rem !important;
 }
