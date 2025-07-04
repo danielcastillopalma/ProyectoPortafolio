@@ -1,7 +1,7 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.puntoverde.app',
+  appId: 'cl.puntoverdeduoc.app',
   appName: 'PuntoVerde',
   webDir: 'www',
   server: {

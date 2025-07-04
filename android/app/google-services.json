@@ -7,12 +7,65 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:1037044386300:android:b466faf1526eef09984a79",
+        "android_client_info": {
+          "package_name": "cl.puntoverdeduoc.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1037044386300-q4uu3gsea8nnhcd4g4rmu5ijqs98trff.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "cl.puntoverdeduoc.app",
+            "certificate_hash": "24f7e9ac28d05fa0670d9e95eb8a1e9187603ddd"
+          }
+        },
+        {
+          "client_id": "1037044386300-agiblg91ck0c99agb9iboe4fcnc1lgnr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrLXQQtGJv6Xm783kJDm__YKRWMMgEGBM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1037044386300-agiblg91ck0c99agb9iboe4fcnc1lgnr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:1037044386300:android:3f4e65d02f285dc7984a79",
         "android_client_info": {
           "package_name": "com.puntoverde.app"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "1037044386300-a8v91dpnk53th7e8nt4oqol0kakld41m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.puntoverde.app",
+            "certificate_hash": "5bd18087de3a4cb36752ccba990bae0551be076d"
+          }
+        },
+        {
+          "client_id": "1037044386300-nlqj6o1mbrnd5mcge0ubkqt3mjutgqtd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.puntoverde.app",
+            "certificate_hash": "24f7e9ac28d05fa0670d9e95eb8a1e9187603ddd"
+          }
+        },
         {
           "client_id": "1037044386300-agiblg91ck0c99agb9iboe4fcnc1lgnr.apps.googleusercontent.com",
           "client_type": 3
