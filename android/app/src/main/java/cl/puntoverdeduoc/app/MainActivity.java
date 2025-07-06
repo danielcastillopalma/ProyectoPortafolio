@@ -1,4 +1,4 @@
-package com.puntoverde.app;
+package cl.puntoverdeduoc.app;
 
 import com.getcapacitor.BridgeActivity;
 

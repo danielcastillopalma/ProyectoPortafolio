@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1037044386300-3sjgj1anlhh8jg8qkk2embcncqv778gl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "cl.puntoverdeduoc.app",
+            "certificate_hash": "805570af9307395304f3c1dc80907e68f193ae98"
+          }
+        },
+        {
           "client_id": "1037044386300-q4uu3gsea8nnhcd4g4rmu5ijqs98trff.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
