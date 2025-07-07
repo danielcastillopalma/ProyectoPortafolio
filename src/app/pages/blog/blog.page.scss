@@ -1,7 +1,7 @@
 .fondo {
   --background: transparent;
   /* Elimina color blanco de fondo por defecto */
-  background-image: url('/assets/FONDO.jpg');
+  background-color: #ace28e;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -22,15 +22,15 @@
   font-family: 'Cal Sans', sans-serif;
   font-size: 20px;
   font-weight: 400;
-  color: #ffffff;
+  color: #1d5702;
   text-align: center;
   margin-bottom: 20px;
 }
 
 ion-modal ion-toolbar {
-  --background: #1a9c1a;
+  --background: #f7f7f7;
 }
 
 ion-modal ion-content {
-  --background: #4cc329;
+  --background: #5daf43;
 }

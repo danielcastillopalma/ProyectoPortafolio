@@ -37,16 +37,15 @@ export class FirebaseService {
     console.log("ENTRADA A VALIDAR USUARIO");
 
     const result = await FirebaseAuthentication.getCurrentUser();
-    const email = result.user?.email + '';
+    const email = result.user?.email ?? '';
     const name = result.user?.displayName || 'Usuario Nuevo';
-
-    console.log("correo:", email);
-    console.log("nombre:", name);
-    console.log("datos:", JSON.stringify(result));
 
     if (!email) return false;
 
-    // Verificar que el correo pertenece a dominios permitidos
+    console.log("correo:", email);
+    console.log("nombre:", name);
+
+    // Verificar dominio institucional
     const domain = email.split('@')[1];
     const allowedDomains = ['duoc.cl', 'duocuc.cl', 'profesor.duoc.cl'];
 
@@ -54,28 +53,31 @@ export class FirebaseService {
       await this.alert.toast("El correo " + email + " no pertenece a DuocUC");
       this.router.navigateByUrl('login');
       await FirebaseAuthentication.signOut();
-      console.log('Acceso restringido a correos institucionales DUOC.');
       return false;
     }
 
-    // Verificar si el email existe en base de datos
+    // Permitir acceso inmediato
+    this.router.navigateByUrl('tabs/home');
+
+    // Validación/sincronización en segundo plano
     try {
-      const userFromDb = await this.api.getEmail(email, name);
-      if (!userFromDb) {
-        await this.alert.toast("Usuario no registrado en la base de datos");
-        await FirebaseAuthentication.signOut();
-        return false;
+      const user = await this.api.getEmail(email, name);
+      if (!user) {
+        console.warn('El usuario no pudo ser creado ni validado, pero ya inició sesión.');
+        // Opcional: guardar en localStorage para reintentar luego
+        localStorage.setItem('pendingUserSync', JSON.stringify({ email, name }));
+      } else {
+        localStorage.removeItem('pendingUserSync');
       }
-
-      // Usuario válido
-      this.router.navigateByUrl('tabs/home');
-      return true;
     } catch (err) {
-      console.error('Error al validar usuario en BD:', err);
-      await this.alert.toast("Error validando usuario");
-      return false;
+      console.error('Error durante la validación con backend:', err);
+      // También puedes almacenar para reintentar
+      localStorage.setItem('pendingUserSync', JSON.stringify({ email, name }));
     }
+
+    return true;
   }
+
 
 
   public async logout() {

@@ -1,31 +1,35 @@
+
+
 <ion-content class="fondo">
   <div class="contenedor-card">
     <h2 class="titulo-home">RANKING DE APORTES</h2>
   </div>
 
+  <div class="foto">
+    <img src="../../../assets/5156635.png">
+    </div>
 
-  <ion-row>
-    <ion-col size="2">
-      Rank
-    </ion-col>
-    <ion-col size="7">
-      Nombre
-    </ion-col>
-    <ion-col size="auto">
-      Puntos
-    </ion-col>
-  </ion-row>
 
-  <ion-row *ngFor="let user of users;index as i">
-    <ion-col size="2">
-     {{ i+1}}
-    </ion-col>
-    <ion-col size="8">
-      {{user.name}}
-    </ion-col>
-    <ion-col size="auto">
-      {{user.ranking}}
-    </ion-col>
-  </ion-row>
+  <div class="ranking-table">
+    <!-- Encabezado -->
+    <ion-row class="ranking-header">
+      <ion-col size="2">Rank</ion-col>
+      <ion-col size="7">Nombre</ion-col>
+      <ion-col size="auto">Puntos</ion-col>
+    </ion-row>
 
+    <!-- Filas dinámicas -->
+    <ion-row *ngFor="let user of users; index as i" class="ranking-row">
+      <ion-col size="2">
+        <ng-container [ngSwitch]="i">
+          <span *ngSwitchCase="0">🥇</span>
+          <span *ngSwitchCase="1">🥈</span>
+          <span *ngSwitchCase="2">🥉</span>
+          <span *ngSwitchDefault>{{ i + 1 }}</span>
+        </ng-container>
+      </ion-col>
+      <ion-col size="7">{{ user.name }}</ion-col>
+      <ion-col size="auto">{{ user.ranking }}</ion-col>
+    </ion-row>
+  </div>
 </ion-content>

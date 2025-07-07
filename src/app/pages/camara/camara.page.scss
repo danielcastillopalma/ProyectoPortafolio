@@ -1,7 +1,7 @@
 .fondo {
   --background: transparent;
   /* Elimina color blanco de fondo por defecto */
-  background-image: url('/assets/FONDO.jpg');
+  background-color: #ace28e;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -13,13 +13,13 @@
   font-family: 'Cal Sans', sans-serif;
   font-size: 25px;
   font-weight: 400;
-  color: #000000;
+  color: #035700;
   text-align: center;
   padding: 50px 20px;
 }
 
 ion-button {
-  --background: #7FE833;
+  --background: #39df2a;
   --background-hover: #9ce0be;
   --background-activated: #88f4be;
   --background-focused: #88f4be;
@@ -34,4 +34,19 @@ ion-button {
 
   --padding-top: 10px;
   --padding-bottom: 10px;
+}
+
+.foto {
+  display: flex;
+  justify-content: center; 
+  margin-top: -40px; 
+  margin-bottom: 20px;
+}
+
+.foto img {
+  width: 100%; 
+  max-width: 340px; 
+  height: auto; 
+  border-radius: 12px; 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }

@@ -1,58 +1,75 @@
+ion-content.background {
+  --ion-background-color: #ffffff;
+}
+
 .circle {
-    height: 600px;
-    width: 600px;
-    background: linear-gradient(90deg, #7dd675 0%, #047200 100%);
-    box-shadow: 0px 1px 10px rgba(98, 140, 255, 0.5);
-    border-radius: 50%;
+  height: 600px;
+  width: 600px;
+  background: linear-gradient(90deg, #7dd675 0%, #047200 100%);
+  box-shadow: 0px 1px 10px rgba(98, 140, 255, 0.5);
+  border-radius: 50%;
 }
 
 .circle1 {
-    margin-left: -200px;
-    margin-top: -260px;
-    margin-bottom: 10px;
+  margin-left: -200px;
+  margin-top: -260px;
+  margin-bottom: 10px;
 }
 
 .circle2 {
-    margin-left: -15px;
-    margin-top: -20px;
-    //margin-bottom: 10px;
+  margin-left: -15px;
+  margin-top: -20px;
+  //margin-bottom: 10px;
 }
 
 .container {
-    position: absolute;
-    top: 6vh;
-    left: 0vw;
-    align-items: center;
-} 
+  position: absolute;
+  top: 6vh;
+  left: 0vw;
+  align-items: center;
+}
 
 .itemDesign {
-    border: 1px solid var(--ion-color-light);
-    border-radius: 20px;
+  border: 1px solid var(--ion-color-light);
+  border-radius: 20px;
 }
 
 ion-icon {
-    font-size: 5rem;
-    margin-left: 35vw;
+  font-size: 5rem;
+  margin-left: 35vw;
 }
 
-.align{
-    position: absolute;
-    width: 65%;
-    margin: auto;
-    bottom: 8vh;
-    left: 17vw;
-    ion-text{
-        font-size: small;
-    }
+.align {
+  position: absolute;
+  width: 65%;
+  margin: auto;
+  bottom: 8vh;
+  left: 17vw;
+
+  ion-text {
+    font-size: small;
+  }
 }
-.titulo {
+
+.logo {
   font-family: 'Cal Sans', sans-serif;
   font-size: 25px;
   font-weight: 400;
   color: #000000;
   text-align: center;
-  padding: 50px 20px;
+  padding: 30px 20px;
+  /* Antes era 50px 20px */
 }
+
+.image {
+  text-align: start;
+  padding: 0px 50px;
+  margin-top: 0px;
+  /* Esto sube la imagen un poco */
+}
+
+
+
 
 //Boton google
 
@@ -61,9 +78,9 @@ ion-icon {
   -webkit-user-select: none;
   -ms-user-select: none;
   -webkit-appearance: none;
-  background-color: WHITE;
+  background-color: rgb(114, 209, 90);
   background-image: none;
-  border: 1px solid #747775;
+  border: 1px solid #75af88;
   -webkit-border-radius: 20px;
   border-radius: 20px;
   -webkit-box-sizing: border-box;
@@ -144,7 +161,7 @@ ion-icon {
   opacity: 38%;
 }
 
-.gsi-material-button:not(:disabled):active .gsi-material-button-state, 
+.gsi-material-button:not(:disabled):active .gsi-material-button-state,
 .gsi-material-button:not(:disabled):focus .gsi-material-button-state {
   background-color: #303030;
   opacity: 12%;
@@ -159,4 +176,3 @@ ion-icon {
   background-color: #303030;
   opacity: 8%;
 }
-
