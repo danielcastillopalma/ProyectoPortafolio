@@ -38,15 +38,42 @@ ion-button {
 
 .foto {
   display: flex;
-  justify-content: center; 
-  margin-top: -40px; 
+  justify-content: center;
+  margin-top: -40px;
   margin-bottom: 20px;
 }
 
 .foto img {
-  width: 100%; 
-  max-width: 340px; 
-  height: auto; 
-  border-radius: 12px; 
+  width: 100%;
+  max-width: 340px;
+  height: auto;
+  border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.ranking-table {
+  background: rgb(255, 255, 255);
+  border-radius: 12px;
+  padding: 10px;
+  margin: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.ranking-header {
+  font-weight: bold;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+  color: #015a09;
+}
+
+.ranking-row {
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 0.95rem;
+  color: #0c0b0b;
+}
+
+.ranking-row:last-child {
+  border-bottom: none;
 }

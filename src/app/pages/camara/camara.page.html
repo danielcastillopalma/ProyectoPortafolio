@@ -3,21 +3,32 @@
 
   <div class="foto">
     <img src="../../../assets/FOTO_CARD.jpeg">
-    </div>
+  </div>
   <ion-row class="ion-padding ion-justify-content-center">
     <ion-col size="auto">
       <ion-button (click)="openQR()">Escanear Punto Verde</ion-button>
     </ion-col>
   </ion-row>
- <h3>Aportes</h3>
+  <h3>Aportes</h3>
   <ng-container *ngIf="!sinAportes; else sinAportesMsg">
-    <ion-row *ngFor="let aporte of aportes; index as i">
-      <ion-col size="1">{{ i + 1 }}</ion-col>
-      <ion-col>{{ aporte[0] }}</ion-col>
-      <ion-col>{{ aporte[1] }}</ion-col>
-      <ion-col>{{ aporte[2] }}</ion-col>
-      <ion-col>{{ aporte[3] }}</ion-col>
-    </ion-row>
+    <div class="ranking-table">
+      <!-- Encabezado -->
+      <ion-row class="ranking-header">
+        <ion-col size="2">Fecha</ion-col>
+        <ion-col size="2">Residuo</ion-col>
+        <ion-col size="4">Punto</ion-col>
+        <ion-col size="auto">Estado</ion-col>
+      </ion-row>
+
+      <!-- Filas dinámicas -->
+      <ion-row *ngFor="let aporte of aportes; index as i" class="ranking-row">
+
+        <ion-col size="2">{{ aporte[0] }}</ion-col>
+        <ion-col size="2">{{ aporte[1] }}</ion-col>
+        <ion-col size="4">{{ aporte[2] }}</ion-col>
+        <ion-col size="auto">{{ aporte[3] }}</ion-col>
+      </ion-row>
+    </div>
   </ng-container>
 
   <ng-template #sinAportesMsg>
@@ -28,4 +39,5 @@
     </ion-row>
   </ng-template>
   <h1>Fin</h1>
+
 </ion-content>

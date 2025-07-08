@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonRow, IonCol } from '@ionic/angular/standalone';
@@ -12,7 +12,7 @@ import { ApirestService } from 'src/app/services/apirest.service';
   imports: [IonContent, IonRow, IonCol, CommonModule, FormsModule]
 })
 
-export class RankingPage implements OnInit {
+export class RankingPage implements AfterViewInit {
   userCount = 0;
   userName = "Daniel Castillo";
   userRank = 1;
@@ -20,8 +20,8 @@ export class RankingPage implements OnInit {
 
   constructor(private api: ApirestService) { }
 
-  ngOnInit() {
-    this.getRanking();
+  async ngAfterViewInit() {
+    await this.getRanking();
   }
   public async getRanking() {
     const response = await this.api.getRankingUsuarios();

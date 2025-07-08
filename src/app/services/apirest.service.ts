@@ -12,39 +12,56 @@ export class ApirestService {
   constructor(private injector: Injector) { }
   //ESTO VERIFICA SI HAY UN USUARIO CON ESE CORREO SI NO LO CREA (SÓLO SI ES INSTITUCIONAL)
   public async getEmail(email: string, displayName: string) {
-    try {
-      const response = await fetch(`${api}/api/querys/${encodeURIComponent(email)}`);
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 3000); // 3 segundos
 
-      if (response.status === 404) {
-        // No encontrado → crear usuario
-        const createResponse = await fetch(`${api}/api/querys`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            correo_usuario: email,
-            nom_usuario: displayName
-            // Agrega otros campos si es necesario
-          }),
-        });
+  try {
+    const response = await fetch(`${api}/api/querys/${encodeURIComponent(email)}`, {
+      signal: controller.signal
+    });
 
-        if (!createResponse.ok) {
-          throw new Error('Error al crear el usuario');
-        }
+    clearTimeout(timeout);
 
-        return await createResponse.json();
+    if (response.status === 404) {
+      // Usuario no encontrado → crear nuevo
+      const createController = new AbortController();
+      const createTimeout = setTimeout(() => createController.abort(), 3000);
+
+      const createResponse = await fetch(`${api}/api/querys`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        signal: createController.signal,
+        body: JSON.stringify({
+          correo_usuario: email,
+          nom_usuario: displayName
+        }),
+      });
+
+      clearTimeout(createTimeout);
+
+      if (!createResponse.ok) {
+        throw new Error('Error al crear el usuario');
       }
 
-      if (!response.ok) throw new Error('Error en la consulta');
-
-      return await response.json();
-
-    } catch (error) {
-      console.error('Error al validar o crear usuario:', error);
-      return null;
+      return await createResponse.json();
     }
+
+    if (!response.ok) throw new Error('Error en la consulta');
+
+    return await response.json();
+
+  } catch (error: any) {
+    if (error.name === 'AbortError') {
+      console.warn('Petición cancelada por timeout');
+    } else {
+      console.error('Error al validar o crear usuario:', error);
+    }
+    return null;
   }
+}
+
   //ESTO OBTIENE LA LISTA DE PUNTOSVERDES
   public async getPuntosVerdes() {
     try {
